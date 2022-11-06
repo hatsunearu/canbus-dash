@@ -50,12 +50,12 @@ class Can240Decoder(CanMessageDecoder):
 class Can231Decoder(CanMessageDecoder):
     
     result = namedtuple('Can231Result', 
-        ['clutch', 'notingear'])
+        ['clutch', 'gearneutral'])
     
     id = 0x231
 
     @classmethod
     def decode(cls, data):
-        notingear = bool(0x04 & data[1])
+        gearneutral = bool(0x04 & data[1])
         clutch = bool(0x02 & data[1])
-        return cls.result(clutch, notingear)
+        return cls.result(clutch, gearneutral)

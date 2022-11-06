@@ -10,34 +10,35 @@ import time
 
 class DisplayManager():
 
+    # reference gear ratios, rpm / vss, in kph
     ref_gear_ratios = [142.91697013838305, 83.27517447657029, 59.904354392147, 42.876771767428416, 36.34426533259218, 30.183701387531755]
 
 
-    def __init__(self):
+    def __init__(self, can_decoders):
         self._last_unstable_gear_time = 0
 
-        self.rpm = 0
-        self.speed = 0
-        self.accpos = 0
-        self.clutch = 0
-        self.notingear = 0
+        self.can_data = {}
+
+        for decoder in can_decoders:
+            for field in decoder.result._fields:
+                self.can_data[field] = 0
 
     
     def filtered_gear(self):
         # too slow, avoid division by zero
-        if self.speed < 1:
+        if self.can_data['speed'] < 1:
             self._last_unstable_gear_time = time.time()
             return 'N'
 
         # detect stable gear ratio
         stable_ratio = None
         for i, r in enumerate(self.ref_gear_ratios):
-            if 0.90 < ((self.rpm / self.speed) / r) < 1.10:
+            if 0.90 < ((self.can_data['rpm'] / self.can_data['speed']) / r) < 1.10:
                 stable_ratio = i + 1
                 break
         
         # no stable ratio detected, or clutched
-        if not stable_ratio or self.clutch or self.notingear: 
+        if not stable_ratio or self.can_data['clutch'] or self.can_data['gearneutral']: 
             self._last_unstable_gear_time = time.time()
             return 'N'
 
@@ -50,28 +51,27 @@ class DisplayManager():
         else:
             return 'N'
         
-    def get_data_update(self, data, timestamp):
-        if isinstance(data, candecoder.Can201Decoder.result):
-            self.rpm = data.rpm
-            self.speed = data.speed # kph
-            self.accpos = data.accpos
-        elif isinstance(data, candecoder.Can231Decoder.result):
-            self.clutch = data.clutch
-            self.notingear = data.notingear
+    def get_can_update(self, data, timestamp):
+        for k, v in data._asdict().items():
+            self.can_data[k] = v
 
     def update_displays(self):
-        dpg.set_value('erpm_textbox', f"{self.rpm:.0f}")
-        dpg.set_value('speed_textbox', f"{abs(self.speed * 0.621371):.0f} mph")
-        dpg.set_value('ratio_textbox', f"{self.rpm / self.speed:.1f}")
+        dpg.set_value('erpm_textbox', f"{self.can_data['rpm']:.0f}")
+        dpg.set_value('speed_textbox', f"{abs(self.can_data['speed'] * 0.621371):.0f} mph")
+        dpg.set_value('ratio_textbox', f"{self.can_data['rpm'] / self.can_data['speed']:.1f}")
         dpg.set_value('gear_textbox', self.filtered_gear())
-        dpg.set_value('clutch_textbox', "CLUTCH" if self.clutch else "")
-        dpg.set_value('ingear_textbox', "GEAR" if self.notingear else "")
+        dpg.set_value('clutch_textbox', "CLUTCH" if self.can_data['clutch'] else "")
+        dpg.set_value('ingear_textbox', "GEAR" if self.can_data['gearneutral'] else "")
+        dpg.set_value('can201u1_textbox', f"{self.can_data['can201unknown1']:.0f}")
 
 
 
 def main():
-    dm = DisplayManager()
-    mgr = canmanager.CanBusManager('vcan0', posthook=dm.get_data_update, decoders=[candecoder.Can201Decoder, candecoder.Can231Decoder])
+
+    can_decoders = [candecoder.Can201Decoder, candecoder.Can231Decoder]
+
+    dm = DisplayManager(can_decoders=can_decoders)
+    mgr = canmanager.CanBusManager('vcan0', posthook=dm.get_can_update, decoders=can_decoders)
     
     dpg.create_context()
     dpg.configure_app(init_file="dashboard_save.ini")
@@ -106,6 +106,10 @@ def main():
     with dpg.window(label="Gear"):
         ingear_textbox = dpg.add_text("", tag="ingear_textbox")
         dpg.bind_item_font(ingear_textbox, font)
+
+    with dpg.window(label="201Unknown1"):
+        can201u1_textbox = dpg.add_text("", tag="can201u1_textbox")
+        dpg.bind_item_font(can201u1_textbox, font)
 
 
     dpg.show_viewport()
