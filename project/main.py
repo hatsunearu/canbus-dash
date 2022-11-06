@@ -80,34 +80,43 @@ def main():
         font = dpg.add_font("/home/hatsu/Downloads/monaco.ttf", 64)
 
 
-    dpg.create_viewport(title='Dashboard', width=640, height=480)
+    viewport = dpg.create_viewport(title='Dashboard', width=640, height=480)
     dpg.setup_dearpygui()
 
-    with dpg.window(label="ERPM"):
+
+
+    with dpg.theme() as container_theme:
+
+        with dpg.theme_component(dpg.mvAll):
+            dpg.add_theme_color(dpg.mvThemeCol_FrameBg, (150, 100, 100), category=dpg.mvThemeCat_Core)
+            dpg.add_theme_style(dpg.mvStyleVar_FrameRounding, 5, category=dpg.mvThemeCat_Core)
+
+
+    with dpg.window(label="ERPM", tag="ERPM"):
         erpm_textbox = dpg.add_text("0000", tag="erpm_textbox")
         dpg.bind_item_font(erpm_textbox, font)
-    
-    with dpg.window(label="Speed"):
+        
+    with dpg.window(label="Speed", tag="VSS"):
         speed_textbox = dpg.add_text("0000", tag="speed_textbox")
         dpg.bind_item_font(speed_textbox, font)
     
-    with dpg.window(label="Gear Ratio"):
+    with dpg.window(label="Gear Ratio", tag="GR"):
         ratio_textbox = dpg.add_text("0000", tag="ratio_textbox")
         dpg.bind_item_font(ratio_textbox, font)
     
-    with dpg.window(label="Gear"):
+    with dpg.window(label="Gear", tag="GEAR"):
         gear_textbox = dpg.add_text("N", tag="gear_textbox")
         dpg.bind_item_font(gear_textbox, font)
     
-    with dpg.window(label="Clutch"):
+    with dpg.window(label="Clutch", tag="CLUTCH"):
         clutch_textbox = dpg.add_text("", tag="clutch_textbox")
         dpg.bind_item_font(clutch_textbox, font)
     
-    with dpg.window(label="Gear"):
+    with dpg.window(label="Gear",  tag="INNEUTRAL"):
         ingear_textbox = dpg.add_text("", tag="ingear_textbox")
         dpg.bind_item_font(ingear_textbox, font)
 
-    with dpg.window(label="201Unknown1"):
+    with dpg.window(label="201Unknown1", tag="201Unknown1"):
         can201u1_textbox = dpg.add_text("", tag="can201u1_textbox")
         dpg.bind_item_font(can201u1_textbox, font)
 
