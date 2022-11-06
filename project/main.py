@@ -12,7 +12,8 @@ class DisplayManager():
 
     # reference gear ratios, rpm / vss, in kph
     ref_gear_ratios = [142.91697013838305, 83.27517447657029, 59.904354392147, 42.876771767428416, 36.34426533259218, 30.183701387531755]
-
+    redline1 = 6500
+    redline2 = 6800
 
     def __init__(self, can_decoders):
         self._last_unstable_gear_time = 0
@@ -59,10 +60,26 @@ class DisplayManager():
         dpg.set_value('erpm_textbox', f"{self.can_data['rpm']:.0f}")
         dpg.set_value('speed_textbox', f"{abs(self.can_data['speed'] * 0.621371):.0f} mph")
         dpg.set_value('ratio_textbox', f"{self.can_data['rpm'] / self.can_data['speed']:.1f}")
-        dpg.set_value('gear_textbox', self.filtered_gear())
+
+        current_gear = self.filtered_gear()
+        dpg.set_value('gear_textbox', current_gear)
         dpg.set_value('clutch_textbox', "CLUTCH" if self.can_data['clutch'] else "")
         dpg.set_value('ingear_textbox', "GEAR" if self.can_data['gearneutral'] else "")
         dpg.set_value('can201u1_textbox', f"{self.can_data['can201unknown1']:.0f}")
+
+        # downshifting would exceed redline1
+        if current_gear != 'N' and current_gear > 1 and \
+        self.can_data['rpm'] * self.ref_gear_ratios[current_gear - 2] / self.ref_gear_ratios[current_gear - 1] > self.redline1:
+            dpg.set_viewport_clear_color([0xf1, 0xff, 0x49])
+        # redline 1
+        if self.can_data['rpm'] > self.redline1:
+            dpg.set_viewport_clear_color([0xff, 0xbc, 0x5c])
+        # redline 2
+        if self.can_data['rpm'] > self.redline2:
+            dpg.set_viewport_clear_color([0xff, 0x51, 0x51])
+        else:
+            dpg.set_viewport_clear_color([0, 0, 0])
+
 
 
 
