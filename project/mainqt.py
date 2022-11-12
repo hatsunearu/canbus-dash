@@ -95,6 +95,11 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 
 def main():
 
+    if len(sys.argv) > 1:
+        interface = sys.argv[1]
+    else:
+        interface = 'vcan0'
+
     can_decoders = [candecoder.Can200Decoder, candecoder.Can201Decoder, candecoder.Can211Decoder, \
         candecoder.Can212Decoder, candecoder.Can215Decoder, candecoder.Can231Decoder, \
         candecoder.Can240Decoder, candecoder.Can420Decoder, candecoder.Can430Decoder]
@@ -103,7 +108,7 @@ def main():
     application = ApplicationWindow()
 
     dm = DisplayManager(can_decoders=can_decoders, qtapplication=application)
-    mgr = canmanager.CanBusManager('vcan0', posthook=dm.get_can_update, decoders=can_decoders)
+    mgr = canmanager.CanBusManager(interface, posthook=dm.get_can_update, decoders=can_decoders)
     
 
     timer = QTimer(app)
