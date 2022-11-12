@@ -67,6 +67,7 @@ class DisplayManager():
         self.app.ui.mphLabel.setText(f"{abs(self.can_data['speed'] * 0.621371):.0f}")
         self.app.ui.rpmProgressbar.setProperty("value", f"{self.can_data['rpm']:.0f}")
         self.app.ui.gearLabel.setText(self.filtered_gear())
+        self.app.ui.ectLabel.setText(f"{self.can_data['ect']:.0f}")
 
         self.app.ui.canlabel200.setText(self.format_hex(self.can_data['can200total']))
         self.app.ui.canlabel201.setText(self.format_hex(self.can_data['can201total']))
