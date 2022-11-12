@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '../dash.ui'
+# Form implementation generated from reading ui file 'dash.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.6
 #
@@ -30,8 +30,60 @@ class Ui_MainWindow(object):
         self.top_row.setObjectName("top_row")
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.top_row.addItem(spacerItem)
+        self.groupBox_3 = QtWidgets.QGroupBox(self.centralwidget)
+        self.groupBox_3.setStyleSheet("\n"
+"QGroupBox{\n"
+"  color: white;\n"
+"  font: 11pt \"American Kestrel Semi-Straight\";\n"
+"    border: 1px solid white;\n"
+"    margin-top: 0.5em;\n"
+"}\n"
+"\n"
+"QGroupBox::title {\n"
+"    top: -6px;\n"
+"    left: 10px;\n"
+"}")
+        self.groupBox_3.setObjectName("groupBox_3")
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.groupBox_3)
+        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        self.ectLabel = QtWidgets.QLabel(self.groupBox_3)
+        self.ectLabel.setStyleSheet("color: white;\n"
+"font: 36pt \"American Kestrel Straight\";\n"
+"border: none;")
+        self.ectLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.ectLabel.setObjectName("ectLabel")
+        self.horizontalLayout_2.addWidget(self.ectLabel)
+        self.top_row.addWidget(self.groupBox_3)
+        self.groupBox_5 = QtWidgets.QGroupBox(self.centralwidget)
+        self.groupBox_5.setStyleSheet("\n"
+"QGroupBox{\n"
+"  color: white;\n"
+"  font: 11pt \"American Kestrel Semi-Straight\";\n"
+"    border: 1px solid white;\n"
+"    margin-top: 0.5em;\n"
+"}\n"
+"\n"
+"QGroupBox::title {\n"
+"    top: -6px;\n"
+"    left: 10px;\n"
+"}")
+        self.groupBox_5.setObjectName("groupBox_5")
+        self.horizontalLayout_5 = QtWidgets.QHBoxLayout(self.groupBox_5)
+        self.horizontalLayout_5.setObjectName("horizontalLayout_5")
+        self.iatLabel = QtWidgets.QLabel(self.groupBox_5)
+        self.iatLabel.setStyleSheet("color: white;\n"
+"font: 36pt \"American Kestrel Straight\";\n"
+"border: none;")
+        self.iatLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.iatLabel.setObjectName("iatLabel")
+        self.horizontalLayout_5.addWidget(self.iatLabel)
+        self.top_row.addWidget(self.groupBox_5)
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.top_row.addItem(spacerItem1)
+        self.top_row.setStretch(0, 1)
+        self.top_row.setStretch(1, 1)
+        self.top_row.setStretch(2, 1)
+        self.top_row.setStretch(3, 1)
         self.verticalLayout.addLayout(self.top_row)
         self.middle_row = QtWidgets.QHBoxLayout()
         self.middle_row.setSizeConstraint(QtWidgets.QLayout.SetFixedSize)
@@ -103,9 +155,8 @@ class Ui_MainWindow(object):
         self.gearLabel.setObjectName("gearLabel")
         self.horizontalLayout.addWidget(self.gearLabel)
         self.middle_row.addWidget(self.groupBox_2)
-        self.groupBox_3 = QtWidgets.QGroupBox(self.centralwidget)
-        self.groupBox_3.setStyleSheet("\n"
-"QGroupBox{\n"
+        self.groupBox_4 = QtWidgets.QGroupBox(self.centralwidget)
+        self.groupBox_4.setStyleSheet("QGroupBox{\n"
 "  color: white;\n"
 "  font: 11pt \"American Kestrel Semi-Straight\";\n"
 "    border: 1px solid white;\n"
@@ -116,17 +167,38 @@ class Ui_MainWindow(object):
 "    top: -6px;\n"
 "    left: 10px;\n"
 "}")
-        self.groupBox_3.setObjectName("groupBox_3")
-        self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.groupBox_3)
-        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.ectLabel = QtWidgets.QLabel(self.groupBox_3)
-        self.ectLabel.setStyleSheet("color: white;\n"
-"font: 48pt \"American Kestrel Straight\";\n"
-"border: none;")
-        self.ectLabel.setAlignment(QtCore.Qt.AlignCenter)
-        self.ectLabel.setObjectName("ectLabel")
-        self.horizontalLayout_2.addWidget(self.ectLabel)
-        self.middle_row.addWidget(self.groupBox_3)
+        self.groupBox_4.setObjectName("groupBox_4")
+        self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.groupBox_4)
+        self.horizontalLayout_4.setContentsMargins(-1, 15, -1, 9)
+        self.horizontalLayout_4.setObjectName("horizontalLayout_4")
+        self.clutchProgressbar = QtWidgets.QProgressBar(self.groupBox_4)
+        self.clutchProgressbar.setStyleSheet("QProgressBar::chunk {\n"
+"  background-color: blue;\n"
+"}")
+        self.clutchProgressbar.setProperty("value", 100)
+        self.clutchProgressbar.setTextVisible(False)
+        self.clutchProgressbar.setOrientation(QtCore.Qt.Vertical)
+        self.clutchProgressbar.setObjectName("clutchProgressbar")
+        self.horizontalLayout_4.addWidget(self.clutchProgressbar)
+        self.brakeProgressbar = QtWidgets.QProgressBar(self.groupBox_4)
+        self.brakeProgressbar.setStyleSheet("QProgressBar::chunk {\n"
+"  background-color: red;\n"
+"}")
+        self.brakeProgressbar.setProperty("value", 100)
+        self.brakeProgressbar.setTextVisible(False)
+        self.brakeProgressbar.setOrientation(QtCore.Qt.Vertical)
+        self.brakeProgressbar.setObjectName("brakeProgressbar")
+        self.horizontalLayout_4.addWidget(self.brakeProgressbar)
+        self.gasProgressbar = QtWidgets.QProgressBar(self.groupBox_4)
+        self.gasProgressbar.setStyleSheet("QProgressBar::chunk {\n"
+"  background-color: green;\n"
+"}")
+        self.gasProgressbar.setProperty("value", 100)
+        self.gasProgressbar.setTextVisible(True)
+        self.gasProgressbar.setOrientation(QtCore.Qt.Vertical)
+        self.gasProgressbar.setObjectName("gasProgressbar")
+        self.horizontalLayout_4.addWidget(self.gasProgressbar)
+        self.middle_row.addWidget(self.groupBox_4)
         spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.middle_row.addItem(spacerItem3)
         self.middle_row.setStretch(0, 1)
@@ -151,13 +223,6 @@ class Ui_MainWindow(object):
         self.canlabel200.setAlignment(QtCore.Qt.AlignCenter)
         self.canlabel200.setObjectName("canlabel200")
         self.gridLayout.addWidget(self.canlabel200, 0, 0, 1, 1)
-        self.canlabel420 = QtWidgets.QLabel(self.centralwidget)
-        self.canlabel420.setStyleSheet("font: 14pt \"Monaco\";\n"
-"color: white;\n"
-"border: none;")
-        self.canlabel420.setAlignment(QtCore.Qt.AlignCenter)
-        self.canlabel420.setObjectName("canlabel420")
-        self.gridLayout.addWidget(self.canlabel420, 1, 2, 1, 1)
         self.canlabel231 = QtWidgets.QLabel(self.centralwidget)
         self.canlabel231.setStyleSheet("font: 14pt \"Monaco\";\n"
 "color: white;\n"
@@ -200,6 +265,13 @@ class Ui_MainWindow(object):
         self.canlabel215.setAlignment(QtCore.Qt.AlignCenter)
         self.canlabel215.setObjectName("canlabel215")
         self.gridLayout.addWidget(self.canlabel215, 0, 4, 1, 1)
+        self.canlabel420 = QtWidgets.QLabel(self.centralwidget)
+        self.canlabel420.setStyleSheet("font: 14pt \"Monaco\";\n"
+"color: white;\n"
+"border: none;")
+        self.canlabel420.setAlignment(QtCore.Qt.AlignCenter)
+        self.canlabel420.setObjectName("canlabel420")
+        self.gridLayout.addWidget(self.canlabel420, 1, 2, 1, 1)
         self.verticalLayout.addLayout(self.gridLayout)
         self.verticalLayout_3 = QtWidgets.QVBoxLayout()
         self.verticalLayout_3.setSizeConstraint(QtWidgets.QLayout.SetDefaultConstraint)
@@ -231,17 +303,18 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.groupBox_3.setTitle(_translate("MainWindow", "ect"))
+        self.ectLabel.setText(_translate("MainWindow", "78"))
+        self.groupBox_5.setTitle(_translate("MainWindow", "iat"))
+        self.iatLabel.setText(_translate("MainWindow", "25"))
         self.groupBox.setTitle(_translate("MainWindow", "mph"))
         self.mphLabel.setText(_translate("MainWindow", "64"))
         self.groupBox_2.setTitle(_translate("MainWindow", "gear"))
         self.gearLabel.setText(_translate("MainWindow", "3"))
-        self.groupBox_3.setTitle(_translate("MainWindow", "ect"))
-        self.ectLabel.setText(_translate("MainWindow", "78"))
+        self.groupBox_4.setTitle(_translate("MainWindow", "pedals"))
         self.canlabel201.setText(_translate("MainWindow", "ffffffff\n"
 "ffffffff"))
         self.canlabel200.setText(_translate("MainWindow", "ffffffff\n"
-"ffffffff"))
-        self.canlabel420.setText(_translate("MainWindow", "ffffffff\n"
 "ffffffff"))
         self.canlabel231.setText(_translate("MainWindow", "ffffffff\n"
 "ffffffff"))
@@ -254,5 +327,7 @@ class Ui_MainWindow(object):
         self.canlabel430.setText(_translate("MainWindow", "ffffffff\n"
 "ffffffff"))
         self.canlabel215.setText(_translate("MainWindow", "ffffffff\n"
+"ffffffff"))
+        self.canlabel420.setText(_translate("MainWindow", "ffffffff\n"
 "ffffffff"))
         self.rpmProgressbar.setFormat(_translate("MainWindow", "%v"))

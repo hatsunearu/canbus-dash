@@ -23,7 +23,7 @@ class DisplayManager():
 
         for decoder in can_decoders:
             for field in decoder.result._fields:
-                self.can_data[field] = bytearray(0)
+                self.can_data[field] = 0 
 
         self.app = qtapplication
 
@@ -68,6 +68,12 @@ class DisplayManager():
         self.app.ui.rpmProgressbar.setProperty("value", f"{self.can_data['rpm']:.0f}")
         self.app.ui.gearLabel.setText(self.filtered_gear())
         self.app.ui.ectLabel.setText(f"{self.can_data['ect']:.0f}")
+        self.app.ui.iatLabel.setText(f"{self.can_data['iat']:.0f}")
+
+
+        self.app.ui.clutchProgressbar.setProperty("value", 100 if self.can_data['clutch'] else 0)
+        self.app.ui.brakeProgressbar.setProperty("value", 100 if self.can_data['brake'] else 0)
+        self.app.ui.gasProgressbar.setProperty("value", self.can_data['accpos'])
 
         self.app.ui.canlabel200.setText(self.format_hex(self.can_data['can200total']))
         self.app.ui.canlabel201.setText(self.format_hex(self.can_data['can201total']))

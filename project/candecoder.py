@@ -34,7 +34,16 @@ def unimplemented_CanDecoder_factory(canid) -> CanMessageDecoder:
 
 
 
-Can200Decoder = unimplemented_CanDecoder_factory(0x200)
+class Can200Decoder(CanMessageDecoder):
+
+    result = namedtuple('Can200Result', ['brake', 'can200total'])
+
+    id = 0x200
+
+    @classmethod
+    def decode(cls, data):
+        brake = bool(data[6] & 0x1)
+        return cls.result(brake, data)
 
 class Can201Decoder(CanMessageDecoder):
 
