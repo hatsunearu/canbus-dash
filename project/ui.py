@@ -123,6 +123,7 @@ class Ui_MainWindow(object):
         self.ectLabel.setStyleSheet("color: white;\n"
 "font: 48pt \"American Kestrel Straight\";\n"
 "border: none;")
+        self.ectLabel.setAlignment(QtCore.Qt.AlignCenter)
         self.ectLabel.setObjectName("ectLabel")
         self.horizontalLayout_2.addWidget(self.ectLabel)
         self.middle_row.addWidget(self.groupBox_3)
@@ -131,6 +132,7 @@ class Ui_MainWindow(object):
         self.middle_row.setStretch(0, 1)
         self.middle_row.setStretch(1, 1)
         self.middle_row.setStretch(2, 1)
+        self.middle_row.setStretch(3, 1)
         self.middle_row.setStretch(4, 1)
         self.verticalLayout.addLayout(self.middle_row)
         self.gridLayout = QtWidgets.QGridLayout()
@@ -234,7 +236,7 @@ class Ui_MainWindow(object):
         self.groupBox_2.setTitle(_translate("MainWindow", "gear"))
         self.gearLabel.setText(_translate("MainWindow", "3"))
         self.groupBox_3.setTitle(_translate("MainWindow", "ect"))
-        self.ectLabel.setText(_translate("MainWindow", "100"))
+        self.ectLabel.setText(_translate("MainWindow", "78"))
         self.canlabel201.setText(_translate("MainWindow", "ffffffff\n"
 "ffffffff"))
         self.canlabel200.setText(_translate("MainWindow", "ffffffff\n"
