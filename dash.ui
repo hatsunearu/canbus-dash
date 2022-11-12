@@ -203,7 +203,10 @@ font: 48pt &quot;American Kestrel Straight&quot;;
 border: none;</string>
            </property>
            <property name="text">
-            <string>100</string>
+            <string>78</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
