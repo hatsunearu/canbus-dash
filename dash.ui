@@ -61,7 +61,7 @@
      </layout>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="middle_row" stretch="1,1,1,0,1">
+     <layout class="QHBoxLayout" name="middle_row" stretch="1,1,1,1,1">
       <property name="sizeConstraint">
        <enum>QLayout::SetFixedSize</enum>
       </property>
