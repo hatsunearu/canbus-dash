@@ -29,5 +29,6 @@ class CanBusManagerListener(can.Listener):
     
     def on_message_received(self, mesg: can.Message):
         decoder = self.manager.decoders[mesg.arbitration_id]
-        self.manager.posthook(data=decoder.decode(mesg.data), timestamp=mesg.timestamp)
+        data = decoder.decode(mesg.data)
+        self.manager.posthook(data=data, timestamp=mesg.timestamp)
     

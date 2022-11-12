@@ -41,8 +41,8 @@ def main():
             traces[field][0].append(res[0])
             traces[field][1].append(getattr(data, field))
     
-    print([hex(x) for x in canID])
-    print(traces.keys())
+    print(sorted([hex(x) for x in canID]))
+    print(sorted(traces.keys()))
 
     for k in traces:
         traces[k] = np.array(traces[k])
