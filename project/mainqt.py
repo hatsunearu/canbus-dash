@@ -31,6 +31,11 @@ class DisplayManager():
         
         self.last_can_update = 0
 
+        self.state_label_font = self.app.ui.canStateLabel.font()
+        f = self.app.ui.canStateLabel.font()
+        f.setStrikeOut(True)
+        self.state_label_font_strikeout = f
+
     
     def filtered_gear(self):
         # too slow, avoid division by zero
@@ -75,7 +80,7 @@ class DisplayManager():
         self.app.ui.mphLabel.setText(f"{abs(self.can_data['speed'] * 0.621371):.0f}")
         self.app.ui.rpmProgressbar.setProperty("value", f"{rpm:.0f}")
         self.app.ui.rpmLabel.setText(f"{rpm:.0f}")
-        self.app.ui.gearLabel.setText(gear())
+        self.app.ui.gearLabel.setText(str(gear).upper())
         self.app.ui.ectLabel.setText(f"{self.can_data['ect']:.0f}")
         self.app.ui.iatLabel.setText(f"{self.can_data['iat']:.0f}")
 
@@ -84,12 +89,15 @@ class DisplayManager():
         self.app.ui.gasProgressbar.setProperty("value", self.can_data['accpos'])
 
         if time.time() - self.last_can_update > 1:
-            self.app.ui.canStateLabel.setStylesheet('font: 18pt "Targa MS"; color: red;')
+            self.app.ui.canStateLabel.setStyleSheet('font: 18pt "Targa MS"; color: red;')
+            self.app.ui.canStateLabel.setFont(self.state_label_font_strikeout)
         else:
-            self.app.ui.canStateLabel.setStylesheet('font: 18pt "Targa MS"; color: rgb(246, 245, 244);')
+            self.app.ui.canStateLabel.setStyleSheet('font: 18pt "Targa MS"; color: rgb(246, 245, 244);')
+            self.app.ui.canStateLabel.setFont(self.state_label_font)
+
         
         if rpm > revlimit2:
-            self.app.ui.rpmProgressbar.setStylesheet('''
+            self.app.ui.rpmProgressbar.setStyleSheet('''
             QProgressBar {
                 background-color: #555;
             }
@@ -101,21 +109,21 @@ class DisplayManager():
             revlimit1 = 5000
         
         if rpm > revlimit2:
-            self.app.ui.rpmProgressbar.setStylesheet('''
+            self.app.ui.rpmProgressbar.setStyleSheet('''
             QProgressBar {
                 background-color: #555;
             }
             QProgressBar::chunk {background: rgb(224, 27, 36);}
             ''')
         elif rpm > revlimit1:
-            self.app.ui.rpmProgressbar.setStylesheet('''
+            self.app.ui.rpmProgressbar.setStyleSheet('''
             QProgressBar {
                 background-color: #555;
             }
             QProgressBar::chunk {background: rgb(246, 211, 45);}
             ''')
         else:
-            self.app.ui.rpmProgressbar.setStylesheet('''
+            self.app.ui.rpmProgressbar.setStyleSheet('''
             QProgressBar {
                 background-color: #555;
             }

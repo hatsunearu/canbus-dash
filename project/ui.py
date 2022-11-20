@@ -21,90 +21,51 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
         MainWindow.setSizePolicy(sizePolicy)
         MainWindow.setBaseSize(QtCore.QSize(640, 480))
-        MainWindow.setStyleSheet("background-color: rgb(61, 56, 70);")
+        MainWindow.setStyleSheet("background-color: rgb(0, 0, 0);")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName("verticalLayout")
-        self.top_row = QtWidgets.QHBoxLayout()
-        self.top_row.setObjectName("top_row")
-        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.top_row.addItem(spacerItem)
-        self.groupBox_3 = QtWidgets.QGroupBox(self.centralwidget)
-        self.groupBox_3.setStyleSheet("\n"
-"QGroupBox{\n"
-"  color: white;\n"
-"  font: 11pt \"American Kestrel Semi-Straight\";\n"
-"    border: 1px solid white;\n"
-"    margin-top: 0.5em;\n"
-"}\n"
-"\n"
-"QGroupBox::title {\n"
-"    top: -6px;\n"
-"    left: 10px;\n"
-"}")
-        self.groupBox_3.setObjectName("groupBox_3")
-        self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.groupBox_3)
-        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.ectLabel = QtWidgets.QLabel(self.groupBox_3)
-        self.ectLabel.setStyleSheet("color: white;\n"
-"font: 36pt \"American Kestrel Straight\";\n"
-"border: none;")
-        self.ectLabel.setAlignment(QtCore.Qt.AlignCenter)
-        self.ectLabel.setObjectName("ectLabel")
-        self.horizontalLayout_2.addWidget(self.ectLabel)
-        self.top_row.addWidget(self.groupBox_3)
-        self.groupBox_5 = QtWidgets.QGroupBox(self.centralwidget)
-        self.groupBox_5.setStyleSheet("\n"
-"QGroupBox{\n"
-"  color: white;\n"
-"  font: 11pt \"American Kestrel Semi-Straight\";\n"
-"    border: 1px solid white;\n"
-"    margin-top: 0.5em;\n"
-"}\n"
-"\n"
-"QGroupBox::title {\n"
-"    top: -6px;\n"
-"    left: 10px;\n"
-"}")
-        self.groupBox_5.setObjectName("groupBox_5")
-        self.horizontalLayout_5 = QtWidgets.QHBoxLayout(self.groupBox_5)
-        self.horizontalLayout_5.setObjectName("horizontalLayout_5")
-        self.iatLabel = QtWidgets.QLabel(self.groupBox_5)
-        self.iatLabel.setStyleSheet("color: white;\n"
-"font: 36pt \"American Kestrel Straight\";\n"
-"border: none;")
-        self.iatLabel.setAlignment(QtCore.Qt.AlignCenter)
-        self.iatLabel.setObjectName("iatLabel")
-        self.horizontalLayout_5.addWidget(self.iatLabel)
-        self.top_row.addWidget(self.groupBox_5)
-        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.top_row.addItem(spacerItem1)
-        self.top_row.setStretch(0, 1)
-        self.top_row.setStretch(1, 1)
-        self.top_row.setStretch(2, 1)
-        self.top_row.setStretch(3, 1)
-        self.verticalLayout.addLayout(self.top_row)
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.rpmProgressbar = QtWidgets.QProgressBar(self.centralwidget)
+        self.rpmProgressbar.setEnabled(True)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Ignored)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.rpmProgressbar.sizePolicy().hasHeightForWidth())
+        self.rpmProgressbar.setSizePolicy(sizePolicy)
+        self.rpmProgressbar.setStyleSheet("QProgressBar {\n"
+"     background-color: #555;\n"
+" }\n"
+"QProgressBar::chunk {background: rgb(53, 132, 228);}")
+        self.rpmProgressbar.setMaximum(7500)
+        self.rpmProgressbar.setProperty("value", 4338)
+        self.rpmProgressbar.setTextVisible(False)
+        self.rpmProgressbar.setInvertedAppearance(False)
+        self.rpmProgressbar.setObjectName("rpmProgressbar")
+        self.verticalLayout_2.addWidget(self.rpmProgressbar)
+        self.verticalLayout.addLayout(self.verticalLayout_2)
         self.middle_row = QtWidgets.QHBoxLayout()
         self.middle_row.setSizeConstraint(QtWidgets.QLayout.SetFixedSize)
         self.middle_row.setObjectName("middle_row")
-        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.middle_row.addItem(spacerItem2)
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.middle_row.addItem(spacerItem)
         self.groupBox = QtWidgets.QGroupBox(self.centralwidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Ignored)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.groupBox.sizePolicy().hasHeightForWidth())
         self.groupBox.setSizePolicy(sizePolicy)
         self.groupBox.setStyleSheet("QGroupBox{\n"
 "  color: white;\n"
-"  font: 11pt \"American Kestrel Semi-Straight\";\n"
+"  font: 11pt \"Targa MS\";\n"
 "    border: 1px solid white;\n"
-"    margin-top: 0.5em;\n"
+"    margin-top: 15px;\n"
 "}\n"
 "\n"
 "QGroupBox::title {\n"
-"    top: -6px;\n"
+"    top: -12px;\n"
 "    left: 10px;\n"
 "}")
         self.groupBox.setObjectName("groupBox")
@@ -116,32 +77,32 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.mphLabel.sizePolicy().hasHeightForWidth())
         self.mphLabel.setSizePolicy(sizePolicy)
-        self.mphLabel.setStyleSheet("font: 48pt \"American Kestrel Straight\";\n"
+        self.mphLabel.setStyleSheet("font: 64pt \"Targa MS\";\n"
 "color: rgb(246, 245, 244);")
         self.mphLabel.setAlignment(QtCore.Qt.AlignCenter)
         self.mphLabel.setObjectName("mphLabel")
         self.horizontalLayout_3.addWidget(self.mphLabel)
         self.middle_row.addWidget(self.groupBox)
         self.groupBox_2 = QtWidgets.QGroupBox(self.centralwidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Ignored)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.groupBox_2.sizePolicy().hasHeightForWidth())
         self.groupBox_2.setSizePolicy(sizePolicy)
         self.groupBox_2.setStyleSheet("QGroupBox{\n"
 "  color: white;\n"
-"  font: 11pt \"American Kestrel Semi-Straight\";\n"
+"  font: 11pt \"Targa MS\";\n"
 "    border: 1px solid white;\n"
-"    margin-top: 0.5em;\n"
+"    margin-top: 15px;\n"
 "}\n"
 "\n"
 "QGroupBox::title {\n"
-"    top: -6px;\n"
+"    top: -12px;\n"
 "    left: 10px;\n"
 "}")
         self.groupBox_2.setObjectName("groupBox_2")
-        self.horizontalLayout = QtWidgets.QHBoxLayout(self.groupBox_2)
-        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.groupBox_2)
+        self.verticalLayout_4.setObjectName("verticalLayout_4")
         self.gearLabel = QtWidgets.QLabel(self.groupBox_2)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Ignored)
         sizePolicy.setHorizontalStretch(0)
@@ -149,22 +110,36 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.gearLabel.sizePolicy().hasHeightForWidth())
         self.gearLabel.setSizePolicy(sizePolicy)
         self.gearLabel.setStyleSheet("color: white;\n"
-"font: 64pt \"American Kestrel Straight\";\n"
+"font: 64pt \"Targa MS\";\n"
 "border: none;")
         self.gearLabel.setAlignment(QtCore.Qt.AlignCenter)
         self.gearLabel.setObjectName("gearLabel")
-        self.horizontalLayout.addWidget(self.gearLabel)
+        self.verticalLayout_4.addWidget(self.gearLabel)
+        self.rpmLabel = QtWidgets.QLabel(self.groupBox_2)
+        self.rpmLabel.setStyleSheet("color: white;\n"
+"font: 24pt \"Targa MS\";\n"
+"border: none;")
+        self.rpmLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.rpmLabel.setObjectName("rpmLabel")
+        self.verticalLayout_4.addWidget(self.rpmLabel)
+        self.verticalLayout_4.setStretch(0, 4)
+        self.verticalLayout_4.setStretch(1, 1)
         self.middle_row.addWidget(self.groupBox_2)
         self.groupBox_4 = QtWidgets.QGroupBox(self.centralwidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Ignored)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.groupBox_4.sizePolicy().hasHeightForWidth())
+        self.groupBox_4.setSizePolicy(sizePolicy)
         self.groupBox_4.setStyleSheet("QGroupBox{\n"
 "  color: white;\n"
-"  font: 11pt \"American Kestrel Semi-Straight\";\n"
+"  font: 11pt \"Targa MS\";\n"
 "    border: 1px solid white;\n"
-"    margin-top: 0.5em;\n"
+"    margin-top: 15px;\n"
 "}\n"
 "\n"
 "QGroupBox::title {\n"
-"    top: -6px;\n"
+"    top: -12px;\n"
 "    left: 10px;\n"
 "}")
         self.groupBox_4.setObjectName("groupBox_4")
@@ -194,107 +169,247 @@ class Ui_MainWindow(object):
 "  background-color: green;\n"
 "}")
         self.gasProgressbar.setProperty("value", 100)
-        self.gasProgressbar.setTextVisible(True)
+        self.gasProgressbar.setTextVisible(False)
         self.gasProgressbar.setOrientation(QtCore.Qt.Vertical)
         self.gasProgressbar.setObjectName("gasProgressbar")
         self.horizontalLayout_4.addWidget(self.gasProgressbar)
         self.middle_row.addWidget(self.groupBox_4)
-        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.middle_row.addItem(spacerItem3)
+        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.middle_row.addItem(spacerItem1)
         self.middle_row.setStretch(0, 1)
-        self.middle_row.setStretch(1, 1)
-        self.middle_row.setStretch(2, 1)
-        self.middle_row.setStretch(3, 1)
+        self.middle_row.setStretch(1, 2)
+        self.middle_row.setStretch(2, 2)
+        self.middle_row.setStretch(3, 2)
         self.middle_row.setStretch(4, 1)
         self.verticalLayout.addLayout(self.middle_row)
-        self.gridLayout = QtWidgets.QGridLayout()
-        self.gridLayout.setObjectName("gridLayout")
-        self.canlabel201 = QtWidgets.QLabel(self.centralwidget)
-        self.canlabel201.setStyleSheet("font: 14pt \"Monaco\";\n"
-"color: white;\n"
-"border: none;")
-        self.canlabel201.setAlignment(QtCore.Qt.AlignCenter)
-        self.canlabel201.setObjectName("canlabel201")
-        self.gridLayout.addWidget(self.canlabel201, 0, 1, 1, 1)
-        self.canlabel200 = QtWidgets.QLabel(self.centralwidget)
-        self.canlabel200.setStyleSheet("font: 14pt \"Monaco\";\n"
-"color: white;\n"
-"border: none;")
-        self.canlabel200.setAlignment(QtCore.Qt.AlignCenter)
-        self.canlabel200.setObjectName("canlabel200")
-        self.gridLayout.addWidget(self.canlabel200, 0, 0, 1, 1)
-        self.canlabel231 = QtWidgets.QLabel(self.centralwidget)
-        self.canlabel231.setStyleSheet("font: 14pt \"Monaco\";\n"
-"color: white;\n"
-"border: none;")
-        self.canlabel231.setAlignment(QtCore.Qt.AlignCenter)
-        self.canlabel231.setObjectName("canlabel231")
-        self.gridLayout.addWidget(self.canlabel231, 1, 0, 1, 1)
-        self.canlabel211 = QtWidgets.QLabel(self.centralwidget)
-        self.canlabel211.setStyleSheet("font: 14pt \"Monaco\";\n"
-"color: white;\n"
-"border: none;")
-        self.canlabel211.setAlignment(QtCore.Qt.AlignCenter)
-        self.canlabel211.setObjectName("canlabel211")
-        self.gridLayout.addWidget(self.canlabel211, 0, 2, 1, 1)
-        self.canlabel240 = QtWidgets.QLabel(self.centralwidget)
-        self.canlabel240.setStyleSheet("font: 14pt \"Monaco\";\n"
-"color: white;\n"
-"border: none;")
-        self.canlabel240.setAlignment(QtCore.Qt.AlignCenter)
-        self.canlabel240.setObjectName("canlabel240")
-        self.gridLayout.addWidget(self.canlabel240, 1, 1, 1, 1)
-        self.canlabel212 = QtWidgets.QLabel(self.centralwidget)
-        self.canlabel212.setStyleSheet("font: 14pt \"Monaco\";\n"
-"color: white;\n"
-"border: none;")
-        self.canlabel212.setAlignment(QtCore.Qt.AlignCenter)
-        self.canlabel212.setObjectName("canlabel212")
-        self.gridLayout.addWidget(self.canlabel212, 0, 3, 1, 1)
-        self.canlabel430 = QtWidgets.QLabel(self.centralwidget)
-        self.canlabel430.setStyleSheet("font: 14pt \"Monaco\";\n"
-"color: white;\n"
-"border: none;")
-        self.canlabel430.setAlignment(QtCore.Qt.AlignCenter)
-        self.canlabel430.setObjectName("canlabel430")
-        self.gridLayout.addWidget(self.canlabel430, 1, 3, 1, 1)
-        self.canlabel215 = QtWidgets.QLabel(self.centralwidget)
-        self.canlabel215.setStyleSheet("font: 14pt \"Monaco\";\n"
-"color: white;\n"
-"border: none;")
-        self.canlabel215.setAlignment(QtCore.Qt.AlignCenter)
-        self.canlabel215.setObjectName("canlabel215")
-        self.gridLayout.addWidget(self.canlabel215, 0, 4, 1, 1)
-        self.canlabel420 = QtWidgets.QLabel(self.centralwidget)
-        self.canlabel420.setStyleSheet("font: 14pt \"Monaco\";\n"
-"color: white;\n"
-"border: none;")
-        self.canlabel420.setAlignment(QtCore.Qt.AlignCenter)
-        self.canlabel420.setObjectName("canlabel420")
-        self.gridLayout.addWidget(self.canlabel420, 1, 2, 1, 1)
-        self.verticalLayout.addLayout(self.gridLayout)
-        self.verticalLayout_3 = QtWidgets.QVBoxLayout()
-        self.verticalLayout_3.setSizeConstraint(QtWidgets.QLayout.SetDefaultConstraint)
-        self.verticalLayout_3.setObjectName("verticalLayout_3")
-        self.rpmProgressbar = QtWidgets.QProgressBar(self.centralwidget)
-        self.rpmProgressbar.setEnabled(True)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Ignored)
+        self.horizontalLayout = QtWidgets.QHBoxLayout()
+        self.horizontalLayout.setContentsMargins(-1, 0, -1, -1)
+        self.horizontalLayout.setSpacing(0)
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.negativePaceProgressbar = QtWidgets.QProgressBar(self.centralwidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.rpmProgressbar.sizePolicy().hasHeightForWidth())
-        self.rpmProgressbar.setSizePolicy(sizePolicy)
-        self.rpmProgressbar.setStyleSheet("color: rgb(255, 255, 255);\n"
-"font: 36pt \"American Kestrel Semi-Straight\";")
-        self.rpmProgressbar.setMaximum(7500)
-        self.rpmProgressbar.setProperty("value", 6000)
-        self.rpmProgressbar.setInvertedAppearance(False)
-        self.rpmProgressbar.setObjectName("rpmProgressbar")
-        self.verticalLayout_3.addWidget(self.rpmProgressbar)
-        self.verticalLayout.addLayout(self.verticalLayout_3)
-        self.verticalLayout.setStretch(0, 2)
-        self.verticalLayout.setStretch(1, 3)
-        self.verticalLayout.setStretch(2, 2)
-        self.verticalLayout.setStretch(3, 1)
+        sizePolicy.setHeightForWidth(self.negativePaceProgressbar.sizePolicy().hasHeightForWidth())
+        self.negativePaceProgressbar.setSizePolicy(sizePolicy)
+        self.negativePaceProgressbar.setStyleSheet("QProgressBar {\n"
+"     background-color: #555;\n"
+"     color: rgb(255, 255, 255);\n"
+"    margin: 0;\n"
+" }\n"
+"QProgressBar::chunk {background-color: rgb(246, 97, 81)}")
+        self.negativePaceProgressbar.setProperty("value", 24)
+        self.negativePaceProgressbar.setTextVisible(False)
+        self.negativePaceProgressbar.setInvertedAppearance(True)
+        self.negativePaceProgressbar.setObjectName("negativePaceProgressbar")
+        self.horizontalLayout.addWidget(self.negativePaceProgressbar)
+        self.positivePaceProgressbar = QtWidgets.QProgressBar(self.centralwidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.positivePaceProgressbar.sizePolicy().hasHeightForWidth())
+        self.positivePaceProgressbar.setSizePolicy(sizePolicy)
+        self.positivePaceProgressbar.setStyleSheet("QProgressBar {\n"
+"     background-color: #555;\n"
+"     color: rgb(255, 255, 255);\n"
+" }\n"
+"QProgressBar::chunk {background-color: rgb(143, 240, 164)}")
+        self.positivePaceProgressbar.setProperty("value", 24)
+        self.positivePaceProgressbar.setTextVisible(False)
+        self.positivePaceProgressbar.setInvertedAppearance(False)
+        self.positivePaceProgressbar.setObjectName("positivePaceProgressbar")
+        self.horizontalLayout.addWidget(self.positivePaceProgressbar)
+        self.verticalLayout.addLayout(self.horizontalLayout)
+        self.gridLayout_2 = QtWidgets.QGridLayout()
+        self.gridLayout_2.setSizeConstraint(QtWidgets.QLayout.SetDefaultConstraint)
+        self.gridLayout_2.setObjectName("gridLayout_2")
+        self.groupBox_6 = QtWidgets.QGroupBox(self.centralwidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Ignored)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.groupBox_6.sizePolicy().hasHeightForWidth())
+        self.groupBox_6.setSizePolicy(sizePolicy)
+        self.groupBox_6.setStyleSheet("QGroupBox{\n"
+"  color: white;\n"
+"  font: 11pt \"Targa MS\";\n"
+"    border: 1px solid white;\n"
+"    margin-top: 15px;\n"
+"}\n"
+"\n"
+"QGroupBox::title {\n"
+"    top: -12px;\n"
+"    left: 10px;\n"
+"}")
+        self.groupBox_6.setObjectName("groupBox_6")
+        self.verticalLayout_5 = QtWidgets.QVBoxLayout(self.groupBox_6)
+        self.verticalLayout_5.setObjectName("verticalLayout_5")
+        self.liveTimerLabel = QtWidgets.QLabel(self.groupBox_6)
+        self.liveTimerLabel.setStyleSheet("font: 24pt \"Targa MS\";\n"
+"color: rgb(246, 245, 244);")
+        self.liveTimerLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.liveTimerLabel.setObjectName("liveTimerLabel")
+        self.verticalLayout_5.addWidget(self.liveTimerLabel)
+        self.gridLayout_2.addWidget(self.groupBox_6, 0, 2, 1, 1)
+        self.groupBox_7 = QtWidgets.QGroupBox(self.centralwidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.groupBox_7.sizePolicy().hasHeightForWidth())
+        self.groupBox_7.setSizePolicy(sizePolicy)
+        self.groupBox_7.setStyleSheet("QGroupBox{\n"
+"  color: white;\n"
+"  font: 11pt \"Targa MS\";\n"
+"    border: 1px solid white;\n"
+"    margin-top: 15px;\n"
+"}\n"
+"\n"
+"QGroupBox::title {\n"
+"    top: -12px;\n"
+"    left: 10px;\n"
+"}")
+        self.groupBox_7.setObjectName("groupBox_7")
+        self.verticalLayout_6 = QtWidgets.QVBoxLayout(self.groupBox_7)
+        self.verticalLayout_6.setObjectName("verticalLayout_6")
+        self.predictedTimeLabel = QtWidgets.QLabel(self.groupBox_7)
+        self.predictedTimeLabel.setStyleSheet("font: 24pt \"Targa MS\";\n"
+"color: rgb(246, 245, 244);")
+        self.predictedTimeLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.predictedTimeLabel.setObjectName("predictedTimeLabel")
+        self.verticalLayout_6.addWidget(self.predictedTimeLabel)
+        self.gridLayout_2.addWidget(self.groupBox_7, 0, 0, 1, 1)
+        self.groupBox_9 = QtWidgets.QGroupBox(self.centralwidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Ignored)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.groupBox_9.sizePolicy().hasHeightForWidth())
+        self.groupBox_9.setSizePolicy(sizePolicy)
+        self.groupBox_9.setStyleSheet("QGroupBox{\n"
+"  color: white;\n"
+"  font: 11pt \"Targa MS\";\n"
+"    border: 1px solid white;\n"
+"    margin-top: 15px;\n"
+"}\n"
+"\n"
+"QGroupBox::title {\n"
+"    top: -12px;\n"
+"    left: 10px;\n"
+"}")
+        self.groupBox_9.setObjectName("groupBox_9")
+        self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.groupBox_9)
+        self.verticalLayout_3.setSizeConstraint(QtWidgets.QLayout.SetDefaultConstraint)
+        self.verticalLayout_3.setObjectName("verticalLayout_3")
+        self.bestTimeLabel = QtWidgets.QLabel(self.groupBox_9)
+        self.bestTimeLabel.setStyleSheet("font: 24pt \"Targa MS\";\n"
+"color: rgb(246, 245, 244);")
+        self.bestTimeLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.bestTimeLabel.setObjectName("bestTimeLabel")
+        self.verticalLayout_3.addWidget(self.bestTimeLabel)
+        self.gridLayout_2.addWidget(self.groupBox_9, 0, 1, 1, 1)
+        self.verticalLayout.addLayout(self.gridLayout_2)
+        self.top_row = QtWidgets.QHBoxLayout()
+        self.top_row.setObjectName("top_row")
+        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.top_row.addItem(spacerItem2)
+        self.groupBox_3 = QtWidgets.QGroupBox(self.centralwidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Ignored)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.groupBox_3.sizePolicy().hasHeightForWidth())
+        self.groupBox_3.setSizePolicy(sizePolicy)
+        self.groupBox_3.setStyleSheet("QGroupBox{\n"
+"  color: white;\n"
+"  font: 11pt \"Targa MS\";\n"
+"    border: 1px solid white;\n"
+"    margin-top: 15px;\n"
+"}\n"
+"\n"
+"QGroupBox::title {\n"
+"    top: -12px;\n"
+"    left: 10px;\n"
+"}")
+        self.groupBox_3.setObjectName("groupBox_3")
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.groupBox_3)
+        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        self.ectLabel = QtWidgets.QLabel(self.groupBox_3)
+        self.ectLabel.setStyleSheet("font: 36pt \"Targa MS\";\n"
+"color: rgb(246, 245, 244);")
+        self.ectLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.ectLabel.setObjectName("ectLabel")
+        self.horizontalLayout_2.addWidget(self.ectLabel)
+        self.top_row.addWidget(self.groupBox_3)
+        self.groupBox_5 = QtWidgets.QGroupBox(self.centralwidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Ignored)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.groupBox_5.sizePolicy().hasHeightForWidth())
+        self.groupBox_5.setSizePolicy(sizePolicy)
+        self.groupBox_5.setStyleSheet("QGroupBox{\n"
+"  color: white;\n"
+"  font: 11pt \"Targa MS\";\n"
+"    border: 1px solid white;\n"
+"    margin-top: 15px;\n"
+"}\n"
+"\n"
+"QGroupBox::title {\n"
+"    top: -12px;\n"
+"    left: 10px;\n"
+"}")
+        self.groupBox_5.setObjectName("groupBox_5")
+        self.horizontalLayout_5 = QtWidgets.QHBoxLayout(self.groupBox_5)
+        self.horizontalLayout_5.setObjectName("horizontalLayout_5")
+        self.iatLabel = QtWidgets.QLabel(self.groupBox_5)
+        self.iatLabel.setStyleSheet("font: 36pt \"Targa MS\";\n"
+"color: rgb(246, 245, 244);")
+        self.iatLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.iatLabel.setObjectName("iatLabel")
+        self.horizontalLayout_5.addWidget(self.iatLabel)
+        self.top_row.addWidget(self.groupBox_5)
+        self.groupBox_8 = QtWidgets.QGroupBox(self.centralwidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Ignored)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.groupBox_8.sizePolicy().hasHeightForWidth())
+        self.groupBox_8.setSizePolicy(sizePolicy)
+        self.groupBox_8.setStyleSheet("QGroupBox{\n"
+"  color: white;\n"
+"  font: 11pt \"Targa MS\";\n"
+"    border: 1px solid white;\n"
+"    margin-top: 15px;\n"
+"}\n"
+"\n"
+"QGroupBox::title {\n"
+"    top: -12px;\n"
+"    left: 10px;\n"
+"}")
+        self.groupBox_8.setObjectName("groupBox_8")
+        self.verticalLayout_7 = QtWidgets.QVBoxLayout(self.groupBox_8)
+        self.verticalLayout_7.setObjectName("verticalLayout_7")
+        self.gpsStateLabel = QtWidgets.QLabel(self.groupBox_8)
+        self.gpsStateLabel.setStyleSheet("font: 18pt \"Targa MS\";\n"
+"color: rgb(246, 245, 244);")
+        self.gpsStateLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.gpsStateLabel.setObjectName("gpsStateLabel")
+        self.verticalLayout_7.addWidget(self.gpsStateLabel)
+        self.canStateLabel = QtWidgets.QLabel(self.groupBox_8)
+        self.canStateLabel.setStyleSheet("font: 18pt \"Targa MS\";\n"
+"color: rgb(246, 245, 244);")
+        self.canStateLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.canStateLabel.setObjectName("canStateLabel")
+        self.verticalLayout_7.addWidget(self.canStateLabel)
+        self.top_row.addWidget(self.groupBox_8)
+        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.top_row.addItem(spacerItem3)
+        self.top_row.setStretch(0, 2)
+        self.top_row.setStretch(1, 1)
+        self.top_row.setStretch(2, 1)
+        self.top_row.setStretch(3, 1)
+        self.top_row.setStretch(4, 2)
+        self.verticalLayout.addLayout(self.top_row)
+        self.verticalLayout.setStretch(0, 1)
+        self.verticalLayout.setStretch(1, 4)
+        self.verticalLayout.setStretch(2, 1)
+        self.verticalLayout.setStretch(3, 2)
+        self.verticalLayout.setStretch(4, 2)
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -303,31 +418,23 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.groupBox_3.setTitle(_translate("MainWindow", "ect"))
-        self.ectLabel.setText(_translate("MainWindow", "78"))
-        self.groupBox_5.setTitle(_translate("MainWindow", "iat"))
-        self.iatLabel.setText(_translate("MainWindow", "25"))
-        self.groupBox.setTitle(_translate("MainWindow", "mph"))
-        self.mphLabel.setText(_translate("MainWindow", "64"))
-        self.groupBox_2.setTitle(_translate("MainWindow", "gear"))
-        self.gearLabel.setText(_translate("MainWindow", "3"))
-        self.groupBox_4.setTitle(_translate("MainWindow", "pedals"))
-        self.canlabel201.setText(_translate("MainWindow", "ffffffff\n"
-"ffffffff"))
-        self.canlabel200.setText(_translate("MainWindow", "ffffffff\n"
-"ffffffff"))
-        self.canlabel231.setText(_translate("MainWindow", "ffffffff\n"
-"ffffffff"))
-        self.canlabel211.setText(_translate("MainWindow", "ffffffff\n"
-"ffffffff"))
-        self.canlabel240.setText(_translate("MainWindow", "ffffffff\n"
-"ffffffff"))
-        self.canlabel212.setText(_translate("MainWindow", "ffffffff\n"
-"ffffffff"))
-        self.canlabel430.setText(_translate("MainWindow", "ffffffff\n"
-"ffffffff"))
-        self.canlabel215.setText(_translate("MainWindow", "ffffffff\n"
-"ffffffff"))
-        self.canlabel420.setText(_translate("MainWindow", "ffffffff\n"
-"ffffffff"))
         self.rpmProgressbar.setFormat(_translate("MainWindow", "%v"))
+        self.groupBox.setTitle(_translate("MainWindow", "MPH"))
+        self.mphLabel.setText(_translate("MainWindow", "123"))
+        self.groupBox_2.setTitle(_translate("MainWindow", "GEAR"))
+        self.gearLabel.setText(_translate("MainWindow", "3"))
+        self.rpmLabel.setText(_translate("MainWindow", "4000"))
+        self.groupBox_4.setTitle(_translate("MainWindow", "PEDAL"))
+        self.groupBox_6.setTitle(_translate("MainWindow", "TIMER"))
+        self.liveTimerLabel.setText(_translate("MainWindow", "X:XX.X"))
+        self.groupBox_7.setTitle(_translate("MainWindow", "PREDICTED"))
+        self.predictedTimeLabel.setText(_translate("MainWindow", "X:XX.X"))
+        self.groupBox_9.setTitle(_translate("MainWindow", "BEST"))
+        self.bestTimeLabel.setText(_translate("MainWindow", "X:XX.X"))
+        self.groupBox_3.setTitle(_translate("MainWindow", "ECT"))
+        self.ectLabel.setText(_translate("MainWindow", "78"))
+        self.groupBox_5.setTitle(_translate("MainWindow", "IAT"))
+        self.iatLabel.setText(_translate("MainWindow", "24"))
+        self.groupBox_8.setTitle(_translate("MainWindow", "SENSOR"))
+        self.gpsStateLabel.setText(_translate("MainWindow", "GPS"))
+        self.canStateLabel.setText(_translate("MainWindow", "CAN"))
