@@ -234,7 +234,10 @@ QGroupBox::title {
            <property name="styleSheet">
             <string notr="true">QProgressBar::chunk {
   background-color: blue;
-}</string>
+}
+QProgressBar {
+     background-color: #555;
+ }</string>
            </property>
            <property name="value">
             <number>100</number>
@@ -252,7 +255,10 @@ QGroupBox::title {
            <property name="styleSheet">
             <string notr="true">QProgressBar::chunk {
   background-color: red;
-}</string>
+}
+QProgressBar {
+     background-color: #555;
+ }</string>
            </property>
            <property name="value">
             <number>100</number>
@@ -270,7 +276,10 @@ QGroupBox::title {
            <property name="styleSheet">
             <string notr="true">QProgressBar::chunk {
   background-color: green;
-}</string>
+}
+QProgressBar {
+     background-color: #555;
+ }</string>
            </property>
            <property name="value">
             <number>100</number>

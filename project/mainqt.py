@@ -64,7 +64,7 @@ class DisplayManager():
 
         # stable ratio detected, and time passed since last unstable
         elif time.time() - self._last_unstable_gear_time > 0.1:
-            return str(stable_ratio)
+            return stable_ratio
         
         # stable ratio detected, but timeout has not passed
         # don't update unstable time

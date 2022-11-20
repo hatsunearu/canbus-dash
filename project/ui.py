@@ -149,7 +149,10 @@ class Ui_MainWindow(object):
         self.clutchProgressbar = QtWidgets.QProgressBar(self.groupBox_4)
         self.clutchProgressbar.setStyleSheet("QProgressBar::chunk {\n"
 "  background-color: blue;\n"
-"}")
+"}\n"
+"QProgressBar {\n"
+"     background-color: #555;\n"
+" }")
         self.clutchProgressbar.setProperty("value", 100)
         self.clutchProgressbar.setTextVisible(False)
         self.clutchProgressbar.setOrientation(QtCore.Qt.Vertical)
@@ -158,7 +161,10 @@ class Ui_MainWindow(object):
         self.brakeProgressbar = QtWidgets.QProgressBar(self.groupBox_4)
         self.brakeProgressbar.setStyleSheet("QProgressBar::chunk {\n"
 "  background-color: red;\n"
-"}")
+"}\n"
+"QProgressBar {\n"
+"     background-color: #555;\n"
+" }")
         self.brakeProgressbar.setProperty("value", 100)
         self.brakeProgressbar.setTextVisible(False)
         self.brakeProgressbar.setOrientation(QtCore.Qt.Vertical)
@@ -167,7 +173,10 @@ class Ui_MainWindow(object):
         self.gasProgressbar = QtWidgets.QProgressBar(self.groupBox_4)
         self.gasProgressbar.setStyleSheet("QProgressBar::chunk {\n"
 "  background-color: green;\n"
-"}")
+"}\n"
+"QProgressBar {\n"
+"     background-color: #555;\n"
+" }")
         self.gasProgressbar.setProperty("value", 100)
         self.gasProgressbar.setTextVisible(False)
         self.gasProgressbar.setOrientation(QtCore.Qt.Vertical)
