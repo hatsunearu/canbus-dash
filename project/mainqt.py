@@ -32,6 +32,7 @@ class DisplayManager():
         self.app = qtapplication
         
         self.last_can_update = 0
+        self.canbus_down = True
 
         self.state_label_font = self.app.ui.canStateLabel.font()
         f = self.app.ui.canStateLabel.font()
@@ -42,6 +43,7 @@ class DisplayManager():
         if self.logfile:
             self.logfile.write(f'time,gear,{",".join(self.keys_to_log)}\n')
             print(f'logging enabled to {self.logfile.name}')
+
 
     
     def filtered_gear(self):
@@ -98,9 +100,11 @@ class DisplayManager():
         if time.time() - self.last_can_update > 1:
             self.app.ui.canStateLabel.setStyleSheet('font: 18pt "Targa MS"; color: red;')
             self.app.ui.canStateLabel.setFont(self.state_label_font_strikeout)
-        else:
+            self.canbus_down = True
+        elif self.canbus_down:
             self.app.ui.canStateLabel.setStyleSheet('font: 18pt "Targa MS"; color: rgb(246, 245, 244);')
             self.app.ui.canStateLabel.setFont(self.state_label_font)
+            self.canbus_down = False
 
         
         if rpm > revlimit2:
