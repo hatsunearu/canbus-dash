@@ -10,6 +10,8 @@ from PyQt5.QtCore import QTimer
 from ui import Ui_MainWindow
 
 
+revlimit2 = 6500
+
 class DisplayManager():
 
     # reference gear ratios, rpm / vss, in kph
@@ -26,6 +28,8 @@ class DisplayManager():
                 self.can_data[field] = 0 
 
         self.app = qtapplication
+        
+        self.last_can_update = 0
 
     
     def filtered_gear(self):
@@ -62,27 +66,64 @@ class DisplayManager():
     def get_can_update(self, data, timestamp):
         for k, v in data._asdict().items():
             self.can_data[k] = v
+        self.last_can_update = time.time()
 
     def update_displays(self):
+        rpm = self.can_data['rpm']
+        gear = self.filtered_gear()
+
         self.app.ui.mphLabel.setText(f"{abs(self.can_data['speed'] * 0.621371):.0f}")
-        self.app.ui.rpmProgressbar.setProperty("value", f"{self.can_data['rpm']:.0f}")
-        self.app.ui.gearLabel.setText(self.filtered_gear())
+        self.app.ui.rpmProgressbar.setProperty("value", f"{rpm:.0f}")
+        self.app.ui.rpmLabel.setText(f"{rpm:.0f}")
+        self.app.ui.gearLabel.setText(gear())
         self.app.ui.ectLabel.setText(f"{self.can_data['ect']:.0f}")
         self.app.ui.iatLabel.setText(f"{self.can_data['iat']:.0f}")
-
 
         self.app.ui.clutchProgressbar.setProperty("value", 100 if self.can_data['clutch'] else 0)
         self.app.ui.brakeProgressbar.setProperty("value", 100 if self.can_data['brake'] else 0)
         self.app.ui.gasProgressbar.setProperty("value", self.can_data['accpos'])
 
-        self.app.ui.canlabel200.setText(self.format_hex(self.can_data['can200total']))
-        self.app.ui.canlabel201.setText(self.format_hex(self.can_data['can201total']))
-        self.app.ui.canlabel212.setText(self.format_hex(self.can_data['can212total']))
-        self.app.ui.canlabel215.setText(self.format_hex(self.can_data['can215total']))
-        self.app.ui.canlabel231.setText(self.format_hex(self.can_data['can231total']))
-        self.app.ui.canlabel240.setText(self.format_hex(self.can_data['can240total']))
-        self.app.ui.canlabel420.setText(self.format_hex(self.can_data['can420total']))
-        self.app.ui.canlabel430.setText(self.format_hex(self.can_data['can430total']))
+        if time.time() - self.last_can_update > 1:
+            self.app.ui.canStateLabel.setStylesheet('font: 18pt "Targa MS"; color: red;')
+        else:
+            self.app.ui.canStateLabel.setStylesheet('font: 18pt "Targa MS"; color: rgb(246, 245, 244);')
+        
+        if rpm > revlimit2:
+            self.app.ui.rpmProgressbar.setStylesheet('''
+            QProgressBar {
+                background-color: #555;
+            }
+            QProgressBar::chunk {background: rgb(53, 132, 228);}
+            ''')
+        if gear != 'n' and gear > 1:
+            revlimit1 = revlimit2 * self.ref_gear_ratios[gear - 1] / self.ref_gear_ratios[gear - 2]
+        else:
+            revlimit1 = 5000
+        
+        if rpm > revlimit2:
+            self.app.ui.rpmProgressbar.setStylesheet('''
+            QProgressBar {
+                background-color: #555;
+            }
+            QProgressBar::chunk {background: rgb(224, 27, 36);}
+            ''')
+        elif rpm > revlimit1:
+            self.app.ui.rpmProgressbar.setStylesheet('''
+            QProgressBar {
+                background-color: #555;
+            }
+            QProgressBar::chunk {background: rgb(246, 211, 45);}
+            ''')
+        else:
+            self.app.ui.rpmProgressbar.setStylesheet('''
+            QProgressBar {
+                background-color: #555;
+            }
+            QProgressBar::chunk {background: rgb(53, 132, 228);}
+            ''')
+        
+
+
         
         
 
@@ -104,11 +145,15 @@ def main():
         candecoder.Can212Decoder, candecoder.Can215Decoder, candecoder.Can231Decoder, \
         candecoder.Can240Decoder, candecoder.Can420Decoder, candecoder.Can430Decoder]
 
+    
     app = QtWidgets.QApplication(sys.argv)
     application = ApplicationWindow()
 
+    kml_file = '../trackdaylib/track_sectors.py'
+
     dm = DisplayManager(can_decoders=can_decoders, qtapplication=application)
     mgr = canmanager.CanBusManager(interface, posthook=dm.get_can_update, decoders=can_decoders)
+
     
 
     timer = QTimer(app)
@@ -116,6 +161,7 @@ def main():
     timer.setSingleShot(False)
     timer.timeout.connect(dm.update_displays)
 
+    time.sleep(1)
     timer.start()
 
 

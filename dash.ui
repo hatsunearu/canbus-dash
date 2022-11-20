@@ -26,118 +26,50 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(61, 56, 70);</string>
+   <string notr="true">background-color: rgb(0, 0, 0);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout" stretch="2,3,2,1">
+   <layout class="QVBoxLayout" name="verticalLayout" stretch="1,4,1,2,2">
     <item>
-     <layout class="QHBoxLayout" name="top_row" stretch="1,1,1,1">
+     <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
-       <spacer name="horizontalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+       <widget class="QProgressBar" name="rpmProgressbar">
+        <property name="enabled">
+         <bool>true</bool>
         </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Ignored">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
         </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QGroupBox" name="groupBox_3">
         <property name="styleSheet">
-         <string notr="true">
-QGroupBox{
-  color: white;
-  font: 11pt &quot;American Kestrel Semi-Straight&quot;;
-    border: 1px solid white;
-    margin-top: 0.5em;
-}
-
-QGroupBox::title {
-    top: -6px;
-    left: 10px;
-}</string>
+         <string notr="true">QProgressBar {
+     background-color: #555;
+ }
+QProgressBar::chunk {background: rgb(53, 132, 228);}</string>
         </property>
-        <property name="title">
-         <string>ect</string>
+        <property name="maximum">
+         <number>7500</number>
         </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
-         <item>
-          <widget class="QLabel" name="ectLabel">
-           <property name="styleSheet">
-            <string notr="true">color: white;
-font: 36pt &quot;American Kestrel Straight&quot;;
-border: none;</string>
-           </property>
-           <property name="text">
-            <string>78</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-        </layout>
+        <property name="value">
+         <number>4338</number>
+        </property>
+        <property name="textVisible">
+         <bool>false</bool>
+        </property>
+        <property name="invertedAppearance">
+         <bool>false</bool>
+        </property>
+        <property name="format">
+         <string>%v</string>
+        </property>
        </widget>
-      </item>
-      <item>
-       <widget class="QGroupBox" name="groupBox_5">
-        <property name="styleSheet">
-         <string notr="true">
-QGroupBox{
-  color: white;
-  font: 11pt &quot;American Kestrel Semi-Straight&quot;;
-    border: 1px solid white;
-    margin-top: 0.5em;
-}
-
-QGroupBox::title {
-    top: -6px;
-    left: 10px;
-}</string>
-        </property>
-        <property name="title">
-         <string>iat</string>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_5">
-         <item>
-          <widget class="QLabel" name="iatLabel">
-           <property name="styleSheet">
-            <string notr="true">color: white;
-font: 36pt &quot;American Kestrel Straight&quot;;
-border: none;</string>
-           </property>
-           <property name="text">
-            <string>25</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
       </item>
      </layout>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="middle_row" stretch="1,1,1,1,1">
+     <layout class="QHBoxLayout" name="middle_row" stretch="1,2,2,2,1">
       <property name="sizeConstraint">
        <enum>QLayout::SetFixedSize</enum>
       </property>
@@ -157,7 +89,7 @@ border: none;</string>
       <item>
        <widget class="QGroupBox" name="groupBox">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <sizepolicy hsizetype="Preferred" vsizetype="Ignored">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
@@ -165,18 +97,18 @@ border: none;</string>
         <property name="styleSheet">
          <string notr="true">QGroupBox{
   color: white;
-  font: 11pt &quot;American Kestrel Semi-Straight&quot;;
+  font: 11pt &quot;Targa MS&quot;;
     border: 1px solid white;
-    margin-top: 0.5em;
+    margin-top: 15px;
 }
 
 QGroupBox::title {
-    top: -6px;
+    top: -12px;
     left: 10px;
 }</string>
         </property>
         <property name="title">
-         <string>mph</string>
+         <string>MPH</string>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
@@ -188,11 +120,11 @@ QGroupBox::title {
             </sizepolicy>
            </property>
            <property name="styleSheet">
-            <string notr="true">font: 48pt &quot;American Kestrel Straight&quot;;
+            <string notr="true">font: 64pt &quot;Targa MS&quot;;
 color: rgb(246, 245, 244);</string>
            </property>
            <property name="text">
-            <string>64</string>
+            <string>123</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -205,7 +137,7 @@ color: rgb(246, 245, 244);</string>
       <item>
        <widget class="QGroupBox" name="groupBox_2">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <sizepolicy hsizetype="Expanding" vsizetype="Ignored">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
@@ -213,20 +145,20 @@ color: rgb(246, 245, 244);</string>
         <property name="styleSheet">
          <string notr="true">QGroupBox{
   color: white;
-  font: 11pt &quot;American Kestrel Semi-Straight&quot;;
+  font: 11pt &quot;Targa MS&quot;;
     border: 1px solid white;
-    margin-top: 0.5em;
+    margin-top: 15px;
 }
 
 QGroupBox::title {
-    top: -6px;
+    top: -12px;
     left: 10px;
 }</string>
         </property>
         <property name="title">
-         <string>gear</string>
+         <string>GEAR</string>
         </property>
-        <layout class="QHBoxLayout" name="horizontalLayout">
+        <layout class="QVBoxLayout" name="verticalLayout_4" stretch="4,1">
          <item>
           <widget class="QLabel" name="gearLabel">
            <property name="sizePolicy">
@@ -237,11 +169,26 @@ QGroupBox::title {
            </property>
            <property name="styleSheet">
             <string notr="true">color: white;
-font: 64pt &quot;American Kestrel Straight&quot;;
+font: 64pt &quot;Targa MS&quot;;
 border: none;</string>
            </property>
            <property name="text">
             <string>3</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="rpmLabel">
+           <property name="styleSheet">
+            <string notr="true">color: white;
+font: 24pt &quot;Targa MS&quot;;
+border: none;</string>
+           </property>
+           <property name="text">
+            <string>4000</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -253,21 +200,27 @@ border: none;</string>
       </item>
       <item>
        <widget class="QGroupBox" name="groupBox_4">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Ignored">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="styleSheet">
          <string notr="true">QGroupBox{
   color: white;
-  font: 11pt &quot;American Kestrel Semi-Straight&quot;;
+  font: 11pt &quot;Targa MS&quot;;
     border: 1px solid white;
-    margin-top: 0.5em;
+    margin-top: 15px;
 }
 
 QGroupBox::title {
-    top: -6px;
+    top: -12px;
     left: 10px;
 }</string>
         </property>
         <property name="title">
-         <string>pedals</string>
+         <string>PEDAL</string>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_4">
          <property name="topMargin">
@@ -323,7 +276,7 @@ QGroupBox::title {
             <number>100</number>
            </property>
            <property name="textVisible">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
            <property name="orientation">
             <enum>Qt::Vertical</enum>
@@ -349,186 +302,371 @@ QGroupBox::title {
      </layout>
     </item>
     <item>
-     <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="1">
-       <widget class="QLabel" name="canlabel201">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QProgressBar" name="negativePaceProgressbar">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="styleSheet">
-         <string notr="true">font: 14pt &quot;Monaco&quot;;
-color: white;
-border: none;</string>
+         <string notr="true">QProgressBar {
+     background-color: #555;
+	 color: rgb(255, 255, 255);
+    margin: 0;
+ }
+QProgressBar::chunk {background-color: rgb(246, 97, 81)}</string>
         </property>
-        <property name="text">
-         <string>ffffffff
-ffffffff</string>
+        <property name="value">
+         <number>24</number>
         </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
+        <property name="textVisible">
+         <bool>false</bool>
+        </property>
+        <property name="invertedAppearance">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="canlabel200">
+      <item>
+       <widget class="QProgressBar" name="positivePaceProgressbar">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="styleSheet">
-         <string notr="true">font: 14pt &quot;Monaco&quot;;
-color: white;
-border: none;</string>
+         <string notr="true">QProgressBar {
+     background-color: #555;
+	 color: rgb(255, 255, 255);
+ }
+QProgressBar::chunk {background-color: rgb(143, 240, 164)}</string>
         </property>
-        <property name="text">
-         <string>ffffffff
-ffffffff</string>
+        <property name="value">
+         <number>24</number>
         </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
+        <property name="textVisible">
+         <bool>false</bool>
         </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="canlabel231">
-        <property name="styleSheet">
-         <string notr="true">font: 14pt &quot;Monaco&quot;;
-color: white;
-border: none;</string>
-        </property>
-        <property name="text">
-         <string>ffffffff
-ffffffff</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QLabel" name="canlabel211">
-        <property name="styleSheet">
-         <string notr="true">font: 14pt &quot;Monaco&quot;;
-color: white;
-border: none;</string>
-        </property>
-        <property name="text">
-         <string>ffffffff
-ffffffff</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QLabel" name="canlabel240">
-        <property name="styleSheet">
-         <string notr="true">font: 14pt &quot;Monaco&quot;;
-color: white;
-border: none;</string>
-        </property>
-        <property name="text">
-         <string>ffffffff
-ffffffff</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="3">
-       <widget class="QLabel" name="canlabel212">
-        <property name="styleSheet">
-         <string notr="true">font: 14pt &quot;Monaco&quot;;
-color: white;
-border: none;</string>
-        </property>
-        <property name="text">
-         <string>ffffffff
-ffffffff</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="3">
-       <widget class="QLabel" name="canlabel430">
-        <property name="styleSheet">
-         <string notr="true">font: 14pt &quot;Monaco&quot;;
-color: white;
-border: none;</string>
-        </property>
-        <property name="text">
-         <string>ffffffff
-ffffffff</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="4">
-       <widget class="QLabel" name="canlabel215">
-        <property name="styleSheet">
-         <string notr="true">font: 14pt &quot;Monaco&quot;;
-color: white;
-border: none;</string>
-        </property>
-        <property name="text">
-         <string>ffffffff
-ffffffff</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2">
-       <widget class="QLabel" name="canlabel420">
-        <property name="styleSheet">
-         <string notr="true">font: 14pt &quot;Monaco&quot;;
-color: white;
-border: none;</string>
-        </property>
-        <property name="text">
-         <string>ffffffff
-ffffffff</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
+        <property name="invertedAppearance">
+         <bool>false</bool>
         </property>
        </widget>
       </item>
      </layout>
     </item>
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout_3">
+     <layout class="QGridLayout" name="gridLayout_2">
       <property name="sizeConstraint">
        <enum>QLayout::SetDefaultConstraint</enum>
       </property>
-      <item>
-       <widget class="QProgressBar" name="rpmProgressbar">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
+      <item row="0" column="2">
+       <widget class="QGroupBox" name="groupBox_6">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Ignored">
+         <sizepolicy hsizetype="Preferred" vsizetype="Ignored">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
         <property name="styleSheet">
-         <string notr="true">color: rgb(255, 255, 255);
-font: 36pt &quot;American Kestrel Semi-Straight&quot;;</string>
+         <string notr="true">QGroupBox{
+  color: white;
+  font: 11pt &quot;Targa MS&quot;;
+    border: 1px solid white;
+    margin-top: 15px;
+}
+
+QGroupBox::title {
+    top: -12px;
+    left: 10px;
+}</string>
         </property>
-        <property name="maximum">
-         <number>7500</number>
+        <property name="title">
+         <string>TIMER</string>
         </property>
-        <property name="value">
-         <number>6000</number>
-        </property>
-        <property name="invertedAppearance">
-         <bool>false</bool>
-        </property>
-        <property name="format">
-         <string>%v</string>
-        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_5">
+         <item>
+          <widget class="QLabel" name="liveTimerLabel">
+           <property name="styleSheet">
+            <string notr="true">font: 24pt &quot;Targa MS&quot;;
+color: rgb(246, 245, 244);</string>
+           </property>
+           <property name="text">
+            <string>X:XX.X</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QGroupBox" name="groupBox_7">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QGroupBox{
+  color: white;
+  font: 11pt &quot;Targa MS&quot;;
+    border: 1px solid white;
+    margin-top: 15px;
+}
+
+QGroupBox::title {
+    top: -12px;
+    left: 10px;
+}</string>
+        </property>
+        <property name="title">
+         <string>PREDICTED</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_6">
+         <item>
+          <widget class="QLabel" name="predictedTimeLabel">
+           <property name="styleSheet">
+            <string notr="true">font: 24pt &quot;Targa MS&quot;;
+color: rgb(246, 245, 244);</string>
+           </property>
+           <property name="text">
+            <string>X:XX.X</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QGroupBox" name="groupBox_9">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Ignored">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QGroupBox{
+  color: white;
+  font: 11pt &quot;Targa MS&quot;;
+    border: 1px solid white;
+    margin-top: 15px;
+}
+
+QGroupBox::title {
+    top: -12px;
+    left: 10px;
+}</string>
+        </property>
+        <property name="title">
+         <string>BEST</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <property name="sizeConstraint">
+          <enum>QLayout::SetDefaultConstraint</enum>
+         </property>
+         <item>
+          <widget class="QLabel" name="bestTimeLabel">
+           <property name="styleSheet">
+            <string notr="true">font: 24pt &quot;Targa MS&quot;;
+color: rgb(246, 245, 244);</string>
+           </property>
+           <property name="text">
+            <string>X:XX.X</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="top_row" stretch="2,1,1,1,2">
+      <item>
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox_3">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Ignored">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QGroupBox{
+  color: white;
+  font: 11pt &quot;Targa MS&quot;;
+    border: 1px solid white;
+    margin-top: 15px;
+}
+
+QGroupBox::title {
+    top: -12px;
+    left: 10px;
+}</string>
+        </property>
+        <property name="title">
+         <string>ECT</string>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QLabel" name="ectLabel">
+           <property name="styleSheet">
+            <string notr="true">font: 36pt &quot;Targa MS&quot;;
+color: rgb(246, 245, 244);</string>
+           </property>
+           <property name="text">
+            <string>78</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox_5">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Ignored">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QGroupBox{
+  color: white;
+  font: 11pt &quot;Targa MS&quot;;
+    border: 1px solid white;
+    margin-top: 15px;
+}
+
+QGroupBox::title {
+    top: -12px;
+    left: 10px;
+}</string>
+        </property>
+        <property name="title">
+         <string>IAT</string>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QLabel" name="iatLabel">
+           <property name="styleSheet">
+            <string notr="true">font: 36pt &quot;Targa MS&quot;;
+color: rgb(246, 245, 244);</string>
+           </property>
+           <property name="text">
+            <string>24</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox_8">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QGroupBox{
+  color: white;
+  font: 11pt &quot;Targa MS&quot;;
+    border: 1px solid white;
+    margin-top: 15px;
+}
+
+QGroupBox::title {
+    top: -12px;
+    left: 10px;
+}</string>
+        </property>
+        <property name="title">
+         <string>SENSOR</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_7">
+         <item>
+          <widget class="QLabel" name="gpsStateLabel">
+           <property name="styleSheet">
+            <string notr="true">font: 18pt &quot;Targa MS&quot;;
+color: rgb(246, 245, 244);</string>
+           </property>
+           <property name="text">
+            <string>GPS</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="canStateLabel">
+           <property name="styleSheet">
+            <string notr="true">font: 18pt &quot;Targa MS&quot;;
+color: rgb(246, 245, 244);</string>
+           </property>
+           <property name="text">
+            <string>CAN</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
       </item>
      </layout>
     </item>

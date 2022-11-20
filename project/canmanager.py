@@ -1,5 +1,6 @@
 import can
 import abc
+import time
 
 class CanBusManager():
     def __init__(self, channel, posthook, interface='socketcan', decoders=[]):
@@ -7,6 +8,7 @@ class CanBusManager():
         self.decoders = {d.id : d for d in decoders}
         self._bus.set_filters([self.filter_from_decoder(d) for d in decoders])
         self.posthook = posthook
+        self.can_last_live = 0
 
         custom_listener = CanBusManagerListener(self)
 
