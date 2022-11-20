@@ -2,7 +2,7 @@ import re
 import canmanager, candecoder
 import pprint
 
-import time, sys
+import time, sys, os
 
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QTimer
@@ -16,9 +16,11 @@ class DisplayManager():
 
     # reference gear ratios, rpm / vss, in kph
     ref_gear_ratios = [142.91697013838305, 83.27517447657029, 59.904354392147, 42.876771767428416, 36.34426533259218, 30.183701387531755]
+    
+    keys_to_log = ['rpm', 'speed', 'accpos', 'brake', 'clutch', 'ect', 'iat']
 
 
-    def __init__(self, can_decoders, qtapplication):
+    def __init__(self, can_decoders, qtapplication, logfile=None):
         self._last_unstable_gear_time = 0
 
         self.can_data = {}
@@ -35,6 +37,11 @@ class DisplayManager():
         f = self.app.ui.canStateLabel.font()
         f.setStrikeOut(True)
         self.state_label_font_strikeout = f
+
+        self.logfile = logfile
+        if self.logfile:
+            self.logfile.write(f'time,gear,{",".join(self.keys_to_log)}\n')
+            print(f'logging enabled to {self.logfile.name}')
 
     
     def filtered_gear(self):
@@ -129,6 +136,14 @@ class DisplayManager():
             }
             QProgressBar::chunk {background: rgb(53, 132, 228);}
             ''')
+
+        if self.logfile:
+            data_line = ','.join([str(self.can_data[k]) for k in self.keys_to_log])
+            self.logfile.write(f'{time.time()},{self.filtered_gear()},{data_line}\n')
+            self.logfile.flush()
+            os.fsync(self.logfile)
+        
+        
         
 
 
@@ -157,9 +172,13 @@ def main():
     app = QtWidgets.QApplication(sys.argv)
     application = ApplicationWindow()
 
-    kml_file = '../trackdaylib/track_sectors.py'
+    if len(sys.argv) > 2:
+        logfile = open(sys.argv[2], 'w')
+    else:
+        logfile = None
 
-    dm = DisplayManager(can_decoders=can_decoders, qtapplication=application)
+    dm = DisplayManager(can_decoders=can_decoders, qtapplication=application, logfile=logfile)
+
     mgr = canmanager.CanBusManager(interface, posthook=dm.get_can_update, decoders=can_decoders)
 
     
