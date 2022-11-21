@@ -1,6 +1,6 @@
 import re
 import canmanager, candecoder
-import pprint
+import pprint, logging
 
 import time, sys, os
 
@@ -33,6 +33,7 @@ class DisplayManager():
         
         self.last_can_update = 0
         self.canbus_down = True
+        self.gps_down = True
 
         self.state_label_font = self.app.ui.canStateLabel.font()
         f = self.app.ui.canStateLabel.font()
@@ -42,7 +43,7 @@ class DisplayManager():
         self.logfile = logfile
         if self.logfile:
             self.logfile.write(f'time,gear,{",".join(self.keys_to_log)}\n')
-            print(f'logging enabled to {self.logfile.name}')
+            logging.info(f'logging enabled to {self.logfile.name}')
 
 
     
@@ -105,7 +106,16 @@ class DisplayManager():
             self.app.ui.canStateLabel.setStyleSheet('font: 18pt "Targa MS"; color: rgb(246, 245, 244);')
             self.app.ui.canStateLabel.setFont(self.state_label_font)
             self.canbus_down = False
-
+        
+        # replace with gps down condition
+        if True:
+            self.app.ui.gpsStateLabel.setStyleSheet('font: 18pt "Targa MS"; color: red;')
+            self.app.ui.gpsStateLabel.setFont(self.state_label_font_strikeout)
+            self.gps_down = True
+        elif self.gps_down:
+            self.app.ui.gpsStateLabel.setStyleSheet('font: 18pt "Targa MS"; color: rgb(246, 245, 244);')
+            self.app.ui.gpsStateLabel.setFont(self.state_label_font)
+            self.gps_down = False
         
         if rpm > revlimit2:
             self.app.ui.rpmProgressbar.setStyleSheet('''
@@ -162,7 +172,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui.setupUi(self)
 
     def keyPressEvent(self, keyEvent) -> None:
-        print(keyEvent.text())
+        logging.info(f"Key pressed: {keyEvent.text()}")
         if keyEvent.text() == 'q':
             self.close()
 
