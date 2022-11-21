@@ -161,6 +161,11 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
+    def keyPressEvent(self, keyEvent) -> None:
+        print(keyEvent.text())
+        if keyEvent.text() == 'q':
+            self.close()
+
 def main():
 
     if len(sys.argv) > 1:

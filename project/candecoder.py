@@ -2,6 +2,9 @@ from collections import namedtuple
 import abc, can
 import canmanager
 
+# correction factor for inaccurate speedo
+speed_correction = 1.0262
+
 class CanMessageDecoder(abc.ABC):
     @property
     @classmethod
@@ -55,6 +58,7 @@ class Can201Decoder(CanMessageDecoder):
     def decode(cls, data):
         rpm = (data[0] * 255 + data[1])/4.
         speed = (data[4] * 255 + data[5])/100. - 100.
+        speed = speed * speed_correction
         accpos = data[6]/2.0
         can201unknown1 = (data[2] * 255 + data[3]) - 0x7fff
         return cls.result(rpm, speed, accpos, can201unknown1, data)
