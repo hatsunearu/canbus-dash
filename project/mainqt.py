@@ -182,7 +182,7 @@ def main():
     application = ApplicationWindow()
 
     if len(sys.argv) > 2:
-        if os.path.isfile(sys.argv):
+        if os.path.isfile(sys.argv[2]):
             raise Exception("Log file of that name already exists")
 
         logfile = open(sys.argv[2], 'w')
