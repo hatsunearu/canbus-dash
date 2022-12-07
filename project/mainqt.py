@@ -1,6 +1,7 @@
 import re
 import canmanager, candecoder
-import pprint, logging
+import pprint, logging, argparse
+from abc import ABC, abstractmethod
 
 import time, sys, os
 
@@ -12,7 +13,7 @@ from ui import Ui_MainWindow
 
 revlimit2 = 6500
 
-class DisplayManager():
+class DisplayManager(DataLoggableABC):
 
     # reference gear ratios, rpm / vss, in kph
     ref_gear_ratios = [142.91697013838305, 83.27517447657029, 59.904354392147, 42.876771767428416, 36.34426533259218, 30.183701387531755]
@@ -156,13 +157,61 @@ class DisplayManager():
             self.logfile.write(f'{time.time()},{self.filtered_gear()},{data_line}\n')
             self.logfile.flush()
             os.fsync(self.logfile)
-        
-        
+
+    def get_log_labels(cls):
+        return [k for k in cls.keys_to_log] + ['gear']
+    
+    def get_log_data(self):
+        return [str(self.can_data[k]) for k in self.keys_to_log] + [self.filtered_gear()]
         
 
 
+class DataLoggableABC(ABC):
+
+    @classmethod
+    def get_log_labels(cls) -> list[str]:
+        pass
+
+    @abstractmethod
+    def get_log_data(self) -> list[str]:
+        pass
+
+
+class DataLogger():
+
+    def __init__(self, log_filename: str, logableclasses: list[DataLoggableABC]=[]):
+        self.loggableclasses = logableclasses
+        self.logging_status = False
+
+        if os.path.exists(log_filename):
+            raise Exception(f'Logfile already exists: {log_filename}')
+
+        self.logfile = open(log_filename, 'w')
         
+        labels = sum([l.get_log_labels() for l in self.loggableclasses])
+        self.logfile.write(','.join(labels))
+
+    def get_logging_status(self):
+        return self.logging_status
+    
+    def write_log(self):
+        data = sum([l.get_log_data() for l in self.loggableclasses])
+
+        try:
+            self.logfile.write(','.join(data))
+            self.logfile.flush()
+            os.fsync()
+            self.logging_status = True
+
+        except Exception as e:
+            print(f'Exception occured during logging: {e}')
+            self.logging_status = False
         
+
+
+
+    
+
 
 class ApplicationWindow(QtWidgets.QMainWindow):
     def __init__(self):
@@ -178,30 +227,41 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 
 def main():
 
-    if len(sys.argv) > 1:
-        interface = sys.argv[1]
-    else:
-        interface = 'vcan0'
+    parser = argparse.ArgumentParser(
+                    prog = 'Dashboard',
+                    description = 'Dashboard')
+
+    parser.add_argument('-i', '--interface', type=str, nargs=1, default='vacn0', help='CAN interface to sniff')
+    parser.add_argument('-l', '--log', nargs=1, help='Logging file')
+    parser.add_argument('-s', '--segments', nargs=1, help='Track sector segments')
+    parser.add_argument('-m', '--microsegments', nargs=1, help='Track microsegments')
+
+    args = parser.parse_args()
 
     can_decoders = [candecoder.Can200Decoder, candecoder.Can201Decoder, candecoder.Can211Decoder, \
         candecoder.Can212Decoder, candecoder.Can215Decoder, candecoder.Can231Decoder, \
         candecoder.Can240Decoder, candecoder.Can420Decoder, candecoder.Can430Decoder]
-
     
     app = QtWidgets.QApplication(sys.argv)
     application = ApplicationWindow()
 
-    if len(sys.argv) > 2:
-        if os.path.isfile(sys.argv[2]):
+
+    interface = args.i
+
+
+    if args.l:
+        if os.path.isfile(args.l):
             raise Exception("Log file of that name already exists")
 
-        logfile = open(sys.argv[2], 'w')
+        logfile = open(args.l, 'w')
     else:
         logfile = None
 
     dm = DisplayManager(can_decoders=can_decoders, qtapplication=application, logfile=logfile)
 
-    mgr = canmanager.CanBusManager(interface, posthook=dm.get_can_update, decoders=can_decoders)
+    mgr = canmanager.CanBusManager(interface, decoders=can_decoders)
+
+    mgr.posthook = dm.get_can_update
 
     
 

@@ -3,7 +3,7 @@ import abc
 import time, logging
 
 class CanBusManager():
-    def __init__(self, channel, posthook, interface='socketcan', decoders=[]):
+    def __init__(self, channel, posthook=None, interface='socketcan', decoders=[]):
         self._bus = can.interface.Bus(channel=channel, interface=interface)
         self.decoders = {d.id : d for d in decoders}
         self._bus.set_filters([self.filter_from_decoder(d) for d in decoders])
@@ -33,7 +33,8 @@ class CanBusManagerListener(can.Listener):
         if mesg.arbitration_id in self.manager.decoders:
             decoder = self.manager.decoders[mesg.arbitration_id]
             data = decoder.decode(mesg.data)
-            self.manager.posthook(data=data, timestamp=mesg.timestamp)
+            if self.manager.posthook:
+                self.manager.posthook(data=data, timestamp=mesg.timestamp)
         else:
             logging.warning(f"Unhandled CAN ID {mesg.arbitration_id}")
     
