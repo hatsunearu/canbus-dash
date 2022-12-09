@@ -4,6 +4,9 @@ import pprint, logging, argparse
 from abc import ABC, abstractmethod
 
 import time, sys, os
+import itertools
+
+import gpsd
 
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QTimer
@@ -11,7 +14,24 @@ from PyQt5.QtCore import QTimer
 from ui import Ui_MainWindow
 
 
+
+
 revlimit2 = 6500
+
+
+
+class DataLoggableABC(ABC):
+
+    @classmethod
+    @abstractmethod
+    def get_log_labels(cls) -> list[str]:
+        pass
+
+    @abstractmethod
+    def get_log_data(self) -> list[str]:
+        pass
+
+
 
 class DisplayManager(DataLoggableABC):
 
@@ -21,7 +41,7 @@ class DisplayManager(DataLoggableABC):
     keys_to_log = ['rpm', 'speed', 'accpos', 'brake', 'clutch', 'ect', 'iat']
 
 
-    def __init__(self, can_decoders, qtapplication, logfile=None):
+    def __init__(self, can_decoders, qtapplication):
         self._last_unstable_gear_time = 0
 
         self.can_data = {}
@@ -34,18 +54,15 @@ class DisplayManager(DataLoggableABC):
         
         self.last_can_update = 0
         self.canbus_down = True
+
+        self.gps_manager = None
+        self.gps_response = None
         self.gps_down = True
 
         self.state_label_font = self.app.ui.canStateLabel.font()
         f = self.app.ui.canStateLabel.font()
         f.setStrikeOut(True)
         self.state_label_font_strikeout = f
-
-        self.logfile = logfile
-        if self.logfile:
-            self.logfile.write(f'time,gear,{",".join(self.keys_to_log)}\n')
-            logging.info(f'logging enabled to {self.logfile.name}')
-
 
     
     def filtered_gear(self):
@@ -108,8 +125,12 @@ class DisplayManager(DataLoggableABC):
             self.app.ui.canStateLabel.setFont(self.state_label_font)
             self.canbus_down = False
         
+
+        if self.gps_manager:
+            self.gps_response = self.gps_manager.get_lat_long()
+
         # replace with gps down condition
-        if True:
+        if not (self.gps_manager and self.gps_response):
             self.app.ui.gpsStateLabel.setStyleSheet('font: 18pt "Targa MS"; color: red;')
             self.app.ui.gpsStateLabel.setFont(self.state_label_font_strikeout)
             self.gps_down = True
@@ -118,24 +139,21 @@ class DisplayManager(DataLoggableABC):
             self.app.ui.gpsStateLabel.setFont(self.state_label_font)
             self.gps_down = False
         
-        if rpm > revlimit2:
-            self.app.ui.rpmProgressbar.setStyleSheet('''
-            QProgressBar {
-                background-color: #555;
-            }
-            QProgressBar::chunk {background: rgb(53, 132, 228);}
-            ''')
+
+
         if gear != 'n' and gear > 1:
             revlimit1 = revlimit2 * self.ref_gear_ratios[gear - 1] / self.ref_gear_ratios[gear - 2]
         else:
             revlimit1 = 5000
+
+        
         
         if rpm > revlimit2:
             self.app.ui.rpmProgressbar.setStyleSheet('''
             QProgressBar {
                 background-color: #555;
             }
-            QProgressBar::chunk {background: rgb(224, 27, 36);}
+            QProgressBar::chunk {background: rgb(255, 27, 36);}
             ''')
         elif rpm > revlimit1:
             self.app.ui.rpmProgressbar.setStyleSheet('''
@@ -152,29 +170,83 @@ class DisplayManager(DataLoggableABC):
             QProgressBar::chunk {background: rgb(53, 132, 228);}
             ''')
 
-        if self.logfile:
-            data_line = ','.join([str(self.can_data[k]) for k in self.keys_to_log])
-            self.logfile.write(f'{time.time()},{self.filtered_gear()},{data_line}\n')
-            self.logfile.flush()
-            os.fsync(self.logfile)
-
+    @classmethod
     def get_log_labels(cls):
         return [k for k in cls.keys_to_log] + ['gear']
     
     def get_log_data(self):
-        return [str(self.can_data[k]) for k in self.keys_to_log] + [self.filtered_gear()]
+        log_line = []
+        for k in self.keys_to_log:
+            data = self.can_data[k]
+            if isinstance(data, bool):
+                log_line.append('1' if data else '0')
+            else:
+                log_line.append(str(data))
+
+        log_line.append(str(self.filtered_gear()))
+
+        return log_line
+
+
+
+
+class GPSManager(DataLoggableABC):
+
+    def __init__(self):
+        gpsd.connect()
+
+        self.last_logged_time = 0
+        self.last_reported_time = 0
+
+    def _get_gps(self):
+        try:
+            gps_data = gpsd.get_current()
+        except UserWarning as w:
+            return None
         
+        if gps_data.mode != 3:
+            return None
 
+        return gps_data
 
-class DataLoggableABC(ABC):
+    def get_lat_long(self):
+        gps_data = self._get_gps()
 
+        if gps_data:
+
+            timestamp = gps_data.get_time().timestamp()
+            gps_updated = timestamp > self.last_reported_time
+            self.last_reported_time = timestamp
+
+            lat, long = gps_data.position()
+
+            return gps_updated, lat, long
+
+        else:
+            return None
+        
     @classmethod
-    def get_log_labels(cls) -> list[str]:
-        pass
+    def get_log_labels(cls):
+        return ['gps_updated', 'gpstime', 'lat', 'long']
+    
+    def get_log_data(self):
+        gps_data = self._get_gps()
 
-    @abstractmethod
-    def get_log_data(self) -> list[str]:
-        pass
+        if gps_data:
+
+            timestamp = gps_data.get_time().timestamp()
+            gps_updated = timestamp > self.last_logged_time
+            self.last_logged_time = timestamp
+
+            lat, long = gps_data.position()
+
+            return ['1' if gps_updated else '0', str(timestamp), str(lat), str(long)] 
+
+        else:
+
+            return ['0', '0', '0']
+
+
 
 
 class DataLogger():
@@ -188,19 +260,20 @@ class DataLogger():
 
         self.logfile = open(log_filename, 'w')
         
-        labels = sum([l.get_log_labels() for l in self.loggableclasses])
-        self.logfile.write(','.join(labels))
+        labels = itertools.chain.from_iterable([l.get_log_labels() for l in self.loggableclasses])
+        self.logfile.write('time,' + ','.join(labels) + '\n')
 
     def get_logging_status(self):
         return self.logging_status
     
     def write_log(self):
-        data = sum([l.get_log_data() for l in self.loggableclasses])
+        data =  itertools.chain.from_iterable([l.get_log_data() for l in self.loggableclasses])
+        t = time.time()
 
         try:
-            self.logfile.write(','.join(data))
+            self.logfile.write(str(t) + ',' + ','.join(data) + '\n')
             self.logfile.flush()
-            os.fsync()
+            os.fsync(self.logfile)
             self.logging_status = True
 
         except Exception as e:
@@ -231,10 +304,10 @@ def main():
                     prog = 'Dashboard',
                     description = 'Dashboard')
 
-    parser.add_argument('-i', '--interface', type=str, nargs=1, default='vacn0', help='CAN interface to sniff')
-    parser.add_argument('-l', '--log', nargs=1, help='Logging file')
-    parser.add_argument('-s', '--segments', nargs=1, help='Track sector segments')
-    parser.add_argument('-m', '--microsegments', nargs=1, help='Track microsegments')
+    parser.add_argument('-i', '--interface', type=str, default='vcan0', help='CAN interface to sniff')
+    parser.add_argument('-l', '--log', type=str, help='Logging file')
+    parser.add_argument('-s', '--segments', help='Track sector segments')
+    parser.add_argument('-m', '--microsegments', help='Track microsegments')
 
     args = parser.parse_args()
 
@@ -246,32 +319,38 @@ def main():
     application = ApplicationWindow()
 
 
-    interface = args.i
+    interface = args.interface
 
-
-    if args.l:
-        if os.path.isfile(args.l):
-            raise Exception("Log file of that name already exists")
-
-        logfile = open(args.l, 'w')
-    else:
-        logfile = None
-
-    dm = DisplayManager(can_decoders=can_decoders, qtapplication=application, logfile=logfile)
+    dm = DisplayManager(can_decoders=can_decoders, qtapplication=application)
 
     mgr = canmanager.CanBusManager(interface, decoders=can_decoders)
 
-    mgr.posthook = dm.get_can_update
+    gpsmgr = GPSManager()
 
+    mgr.posthook = dm.get_can_update
+    dm.gps_manager = gpsmgr
+
+
+
+    display_timer = QTimer(app)
+    display_timer.setInterval(16)
+    display_timer.setSingleShot(False)
+    display_timer.timeout.connect(dm.update_displays)
+
+    if args.log:
+        logger = DataLogger(args.log, [dm, gpsmgr])
+
+
+        log_timer = QTimer(app)
+        log_timer.setInterval(10)
+        log_timer.setSingleShot(False)
+        log_timer.timeout.connect(logger.write_log)
     
 
-    timer = QTimer(app)
-    timer.setInterval(16)
-    timer.setSingleShot(False)
-    timer.timeout.connect(dm.update_displays)
-
     time.sleep(1)
-    timer.start()
+    display_timer.start()
+    if args.log:
+        log_timer.start()
 
 
 
