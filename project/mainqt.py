@@ -16,7 +16,7 @@ from ui import Ui_MainWindow
 
 
 
-revlimit2 = 6500
+revlimit2 = 6800
 
 
 
@@ -63,6 +63,7 @@ class DisplayManager(DataLoggableABC):
         f = self.app.ui.canStateLabel.font()
         f.setStrikeOut(True)
         self.state_label_font_strikeout = f
+
 
     
     def filtered_gear(self):
@@ -148,7 +149,7 @@ class DisplayManager(DataLoggableABC):
 
         
         
-        if rpm > revlimit2:
+        if rpm > revlimit2 and ((time.time() * 5) % 1) < 0.5:
             self.app.ui.rpmProgressbar.setStyleSheet('''
             QProgressBar {
                 background-color: #555;
