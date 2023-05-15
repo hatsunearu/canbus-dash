@@ -6,7 +6,7 @@ from abc import ABC, abstractmethod
 import time, sys, os
 import itertools
 
-import gpsd
+import gpsd2
 
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QTimer
@@ -194,14 +194,14 @@ class DisplayManager(DataLoggableABC):
 class GPSManager(DataLoggableABC):
 
     def __init__(self):
-        gpsd.connect()
+        gpsd2.connect()
 
         self.last_logged_time = 0
         self.last_reported_time = 0
 
     def _get_gps(self):
         try:
-            gps_data = gpsd.get_current()
+            gps_data = gpsd2.get_current()
         except UserWarning as w:
             return None
         
